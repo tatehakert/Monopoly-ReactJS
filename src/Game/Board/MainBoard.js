@@ -71,15 +71,15 @@ function MainBoard(props) {
             <div className="col col-2 bp cp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[10]}/></div>
             <div className="col col-8 m-0 p-0">
                 <div className="row m-0 p-0 h-100">
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[9]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[8]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[7]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[6]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[5]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[4]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[3]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[2]}/></div>
-                    <div className="col bp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[1]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[9]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[8]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[7]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[6]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[5]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[4]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[3]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[2]}/></div>
+                    <div className="col bp xbp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[1]}/></div>
                 </div>
             </div>
             <div className="col col-2 bp cp m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[0]}/></div>

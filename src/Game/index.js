@@ -26,7 +26,7 @@ class Game extends React.Component {
                         "utilities": [],
                         "railroads": [],
                         "purple": [],
-                        "sky": [9, 8, 6],
+                        "sky": [],
                         "pink": [],
                         "orange": [],
                         "red": [],
@@ -140,7 +140,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 1,
+                    "ownedBy": null,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -165,7 +165,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 1,
+                    "ownedBy": null,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -180,7 +180,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 1,
+                    "ownedBy": null,
                     "baseRent": 8,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 12.5, 37.5, 56.25, 75]
@@ -598,7 +598,7 @@ class Game extends React.Component {
         let players = this.state.players
         let consecutiveTurns = this.state.consecutiveTurns
         consecutiveTurns+= 1
-        this.setState({ newRoll: true, lastRoll: dicePair, consecutiveTurns: consecutiveTurns})
+        this.setState({ newRoll: true, lastRoll: dicePair, consecutiveTurns: consecutiveTurns, waitingToRoll: false})
         if(! players[this.state.currentPlayer]["in-jail"]){
             this.movePlayer(dicePair)
         }else{

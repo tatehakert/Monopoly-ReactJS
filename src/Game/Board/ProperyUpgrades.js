@@ -13,7 +13,21 @@ class PropertyUpgrades extends React.Component {
 
     componentDidUpdate(prevProps){
         if(prevProps !== this.props){
-            
+            let players = this.props.players
+            let ownedProperties = players[this.props.currentPlayer]["properties"]
+            let boardPositions = this.props.boardPositions
+            let fullSets = []
+
+            for(let propertySet in ownedProperties){
+                if(!(propertySet === "utilities" || propertySet === "railroads") && ownedProperties[propertySet].length > 0){
+                    let fullSet = boardPositions[ownedProperties[propertySet][0]]["propertiesInSet"]
+                    if(ownedProperties[propertySet].length === fullSet.length){ //owns all properties in set
+                        fullSets.push(fullSet)
+                    }
+                }
+            }
+            this.setState({fullSets: fullSets})
+            console.log(fullSets)
         }
     }
 
