@@ -2,6 +2,7 @@ import MainBoard from './Board/MainBoard';
 import React from 'react';
 import SideView from './SideView/SideView';
 import {Modal, Button} from 'react-bootstrap';
+import PositionModal from './Board/PositionModal';
 
 class Game extends React.Component {
     constructor(props){
@@ -25,7 +26,7 @@ class Game extends React.Component {
                         "utilities": [],
                         "railroads": [],
                         "purple": [],
-                        "sky": [],
+                        "sky": [9, 8, 6],
                         "pink": [],
                         "orange": [],
                         "red": [],
@@ -139,7 +140,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 1,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -164,7 +165,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 1,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -179,7 +180,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 1,
                     "baseRent": 8,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 12.5, 37.5, 56.25, 75]
@@ -214,7 +215,7 @@ class Game extends React.Component {
                     "name": "Electric Company",
                     "role": "utility",
                     "propertySet": "utilities",
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 150,
                     "hitCount": 0,
                     "ownedBy": null,
@@ -654,14 +655,20 @@ class Game extends React.Component {
         let numOwned = 0
         let rentOwed = 0
         if(owner){
-            for(let prop in propertiesInSet){
-                if(this.state.boardPositions[prop]["ownedBy"] === owner){
-                    numOwned+=1
+            //console.log("propertiesInSet.length: ", propertiesInSet.length)
+            for(let index in propertiesInSet){
+                //console.log(index)
+                if(this.state.boardPositions[propertiesInSet[index]]["ownedBy"] === owner){
+                    numOwned = numOwned + 1
                 }   
             }
     
             if(position === 12 || position === 28){ //utilities
+                //console.log("owner: ", owner)
+                //console.log("diceTotal: ", diceTotal)
+                //console.log("numOwned: ", numOwned)
                 rentOwed = diceTotal * this.state.boardPositions[position]["rentMultiplier"][numOwned]
+                //console.log("rentOwed: ", rentOwed)
             }else if(position === 5 || position === 15 || position === 25 || position === 35){  //#railroads
                 rentOwed = this.state.boardPositions[position]["baseRent"] * this.state.boardPositions[position]["rentMultiplier"][numOwned]
             }else if(numOwned === propertiesInSet.length){ //# if all properties in the set are owned
@@ -674,6 +681,7 @@ class Game extends React.Component {
                 rentOwed = this.state.boardPositions[position]["baseRent"] 
             }
         }
+        //console.log("rent owed: ", rentOwed)
         
         return Math.round(rentOwed)
     }
@@ -693,6 +701,17 @@ class Game extends React.Component {
                 players[currentPlayer]["properties"][boardPositions[position]["propertySet"]].push(position)
             }
         }
+    }
+
+    buyHouse(pos){
+        console.log("buying house for pos: ", pos)
+        let boardPositions = this.state.boardPositions
+        let players = this.state.players
+
+        boardPositions[pos]["numHouses"] = boardPositions[pos]["numHouses"] + 1
+        players[this.state.currentPlayer]["balance"] = players[this.state.currentPlayer]["balance"] - boardPositions[pos]["houseCost"]
+
+        this.setState({boardPositions: boardPositions, players: players})
     }
 
     makeHomePurchaseDecision(){
@@ -723,36 +742,42 @@ class Game extends React.Component {
         }
     }
 
+    //make a pay rent function: no params, current user pays RENT to the owner of on their current position
+    //make a pay tax function: no params, current user pays $100 in tax
+
 
     payRentIfOwed(dicePair){
-        console.log("paying rent if owed")
+        //console.log("paying rent if owed")
         let players = this.state.players
         let boardPositions = this.state.boardPositions
         let position = players[this.state.currentPlayer]["position"]
         let rentPrice = 0
     
-        if(boardPositions[position]["role"] in ["utility", "railroad", "property"]){
+        if(boardPositions[position]["role"] === "utility" || boardPositions[position]["role"] === "railroad" || boardPositions[position]["role"] === "property"){
+     
             let propertyOwner = boardPositions[position]["ownedBy"]
-            if(propertyOwner && propertyOwner !== this.state.currentPlayer){  //if there is an owner and it is not the player
+            if(boardPositions[position]["ownedBy"] && boardPositions[position]["ownedBy"] !== this.state.currentPlayer){  //if there is an owner and it is not the player
                 //print("Player #", pid, " owes rent -->")
+                console.log("player owes rent!")
                 rentPrice = this.getRentPrice(players[this.state.currentPlayer]["position"], dicePair[0]+dicePair[1])
                 if(rentPrice > 0){
                     console.log("Player #", this.state.currentPlayer, " pays $", rentPrice," in rent at ", boardPositions[position]["name"])
+                    players[this.state.currentPlayer]["balance"] = players[this.state.currentPlayer]["balance"] - rentPrice
+                    players[boardPositions[position]["ownedBy"]]["balance"] = players[boardPositions[position]["ownedBy"]]["balance"] + rentPrice
                 }
             }
         }else if(boardPositions[position]["role"] === "tax"){
             console.log("Player #", this.state.currentPlayer, " owes taxes --> pay $100")
             players[this.state.currentPlayer]["balance"] -= 100
         }
-        players[this.state.currentPlayer]["balance"] -= rentPrice
-    
+        
         if(players[this.state.currentPlayer]["balance"] < 0){
             console.log("out of money!")
         }
 
         this.setState({players: players})
-        this.makePropertyPurchaseDecision()
-        this.makeHomePurchaseDecision()
+        //this.makePropertyPurchaseDecision()
+        //this.makeHomePurchaseDecision()
         if(dicePair[0] !== dicePair[1] || players[this.state.currentPlayer]["in-jail"] || this.state.consecutiveTurns >= 3){
             this.endTurn()
         }
@@ -778,6 +803,7 @@ class Game extends React.Component {
         let oldPosition = players[this.state.currentPlayer]["position"]
         let currPosition = oldPosition
         let destination = (currPosition + dicePair[0] + dicePair[1]) % 40
+
         while(currPosition !== destination){
             currPosition = (currPosition + 1)%40
             players[this.state.currentPlayer]["position"] = currPosition
@@ -805,37 +831,27 @@ class Game extends React.Component {
         
     }
 
+    endGame(){
+        console.log("GAME OVER!")
+    }
+
     render() {
       return (
         <div className="game-container w-100">
-            <Modal show={this.state.showModal} onHide={() => this.toggleModal()} animation={false}>
-                <Modal.Header>
-                    <Modal.Title>Player #{this.state.currentPlayer} landed at: {this.state.boardPositions[this.state.players[this.state.currentPlayer]["position"]]["name"]}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Property Details: <br/>
-                    Owned by: {this.state.boardPositions[this.state.players[this.state.currentPlayer]["position"]]["ownedBy"] || "no one"}
-                </Modal.Body>
-                <Modal.Footer>
-                    {this.state.boardPositions[this.state.players[this.state.currentPlayer]["position"]]["ownedBy"] !== this.state.currentPlayer && this.getRentPrice(this.state.players[this.state.currentPlayer]["position"], this.state.lastRoll[0] + this.state.lastRoll[1]) > 0 ? (
-                        <Button variant="danger" onClick={() => this.payRentIfOwed(this.state.lastRoll)}>
-                            Pay ${this.getRentPrice(this.state.players[this.state.currentPlayer]["position"], this.state.lastRoll[0] + this.state.lastRoll[1])} in rent
-                        </Button>
-                    ) : this.state.boardPositions[this.state.players[this.state.currentPlayer]["position"]]["canPurchase"] ? (
-                        <Button variant="success" 
-                                disabled={this.state.players[this.state.currentPlayer]["balance"] < this.state.boardPositions[this.state.players[this.state.currentPlayer]["position"]]["purchasePrice"]} 
-                                onClick={() => this.makePropertyPurchase()}>
-                            Purchase for ${this.state.boardPositions[this.state.players[this.state.currentPlayer]["position"]]["purchasePrice"]}
-                        </Button>
-                    ) : (
-                        <Button variant="primary" onClick={() => this.endTurn()}>
-                            Next
-                        </Button>
-                    )}
-                    
-           
-                </Modal.Footer>
-            </Modal>
+            {this.state.showModal ?
+            <PositionModal showModal={this.state.showModal}
+                           boardPositions={this.state.boardPositions}
+                           players={this.state.players}
+                           currentPlayer={this.state.currentPlayer}
+                           toggleModal={() => this.toggleModal()}
+                           getRent={() => this.getRentPrice(this.state.players[this.state.currentPlayer]["position"], this.state.lastRoll[0] + this.state.lastRoll[1])}
+                           payRent={() => this.payRentIfOwed(this.state.lastRoll)}
+                           purchaseProperty={() => this.makePropertyPurchase()}
+                           endGame={() => this.endGame()}
+                           endTurn={() => this.endTurn()}
+                           buyHouse={(pos) => this.buyHouse(pos)}/>
+            : null}
+          
 
             <div className="row m-0 p-0">
                 <div className="col-10 h-100">
