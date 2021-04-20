@@ -25,7 +25,7 @@ class App extends React.Component {
                            'olive', "purple", "red", "silver", "teal", "white", "yellow"],
             players: {
               1: {
-                  "isABot": true,
+                  "isABot": false,
                   "name": "Player 1",
                   "position": 0,
                   "balance": startingBalance,
@@ -34,7 +34,7 @@ class App extends React.Component {
                   "properties": {
                       "utilities": [],
                       "railroads": [],
-                      "purple": [1,3],
+                      "purple": [],
                       "sky": [],
                       "pink": [],
                       "orange": [],
@@ -47,7 +47,7 @@ class App extends React.Component {
                   "iconColor": "red"
               },
               2:{
-                "isABot": false,
+                "isABot": true,
                 "name": "Player 2",
                 "position": 0,
                 "balance": startingBalance,
@@ -56,8 +56,8 @@ class App extends React.Component {
                 "properties": {
                     "utilities": [],
                     "railroads": [],
-                    "purple": [1,3],
-                    "sky": [],
+                    "purple": [],
+                    "sky": [9,8,6],
                     "pink": [],
                     "orange": [],
                     "red": [],
@@ -100,7 +100,7 @@ class App extends React.Component {
         for(let i = this.state.numPlayers; i < newVal; i++){
           newList[i+1] = {
             "isABot": false,
-            "name": `Player #${i+1}`,
+            "name": `Player ${i+1}`,
             "position": 0,
             "balance": this.state.startingBalance,
             "in-jail": false,
@@ -108,7 +108,7 @@ class App extends React.Component {
             "properties": {
                 "utilities": [],
                 "railroads": [],
-                "purple": [1,3],
+                "purple": [],
                 "sky": [],
                 "pink": [],
                 "orange": [],
@@ -127,7 +127,7 @@ class App extends React.Component {
         }
       }
 
-      this.setState({players: newList, stateUpdated: true, numPlayers: newVal})
+      this.setState({players: newList, stateUpdated: true, numPlayers: newVal, playerSelectingIcon: 1})
     }
 
     updatePlayerName(pid, newName){
@@ -178,16 +178,12 @@ class App extends React.Component {
             <Modal.Body>
                 <div className="row mx-4">
                   {this.state.iconChoices.map((icon,index) => 
-                      <>
-                      {this.state.playerSelectingIcon ? 
-                        <div className={`col-2 p-3 text-center${this.state.players[this.state.playerSelectingIcon]["iconClass"] === icon ? " border rounded" : ""}`}>
+                      <div key={`iconOption-${icon}`}
+                           className={`col-2 p-3 text-center ${this.state.playerSelectingIcon && this.state.players[this.state.playerSelectingIcon]["iconClass"] === icon ? " border rounded" : ""}`}>
                           <i className={icon} 
-                           style={{fontSize: 30,color: this.state.players[this.state.playerSelectingIcon]["iconColor"]}}
+                             style={{fontSize: 30,color: this.state.playerSelectingIcon ? this.state.players[this.state.playerSelectingIcon]["iconColor"] : "black"}}
                            onClick={() => this.updatePlayerIcon(this.state.playerSelectingIcon, icon)}></i>
-                        </div>
-                        
-                      :null }
-                      </>
+                      </div>
                     
                   )}
                 </div>
@@ -196,7 +192,8 @@ class App extends React.Component {
                   {this.state.colorChoices.map((c,index) => 
                       <div className={`col-2 m-1 text-center rounded`} 
                            style={{backgroundColor: c, fontWeight: 800,color: c === "white" || c === "yellow" ? "black" : "white"}} 
-                           onClick={() => this.updatePlayerIconColor(this.state.playerSelectingIcon, c)}>
+                           onClick={() => this.updatePlayerIconColor(this.state.playerSelectingIcon, c)}
+                           key={`color-choice-${c}`}>
                       {c}
                       </div>
                     
@@ -222,56 +219,57 @@ class App extends React.Component {
                         <label>
                           Number of Players:
                           <select className="mx-2" value={this.state.numPlayers} onChange={(event) => this.updateNumPlayers(event.target.value)}>
-                            <option value={2}>2</option>
-                            <option value={3}>3</option>
-                            <option value={4}>4</option>
+                            <option value={2} key={"numPlayers-2"}>2</option>
+                            <option value={3} key={"numPlayers-3"}>3</option>
+                            <option value={4} key={"numPlayers-4"}>4</option>
                           </select>
                         </label>
                       </div>
 
-                      <div className="">
-                       
+                      <div className="">  
                         <div className="input-group mb-3">
                           Starting balance:
-                          <div className="input-group-prepend ml-4">
-                            <span className="input-group-text">$</span>
-                          </div>
+                          <div className="input-group-prepend ml-4"><span className="input-group-text">$</span></div>
                           <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" value={this.state.startingBalance} onChange={(event) => this.startingBalanceChanged(event.target.value)}></input>
                         </div>
                       </div>
                         
-                        
-                      
                     </div>
                     
                     <div>
                       {Object.keys(this.state.players).map((key, index) => 
-                        <>
-                        <hr/>
-                        <div className="d-flex flex-row my-2" key={key}>
-                          
-                          <div className="mx-2">
-                            <label>
-                              P{key} - Name:
-                              <input value={this.state.players[key]["name"]} 
-                                     onChange={(event) => this.updatePlayerName(key, event.target.value)}
-                                     className="ml-2"></input>
-                            </label>
+                        <div key={`player-${key}`}>
+                          <hr/>
+                          <div className="d-flex flex-row my-2">
+                            
+                            <div className="mx-2">
+                              <label>
+                                P{key} - Name:
+                                <input value={this.state.players[key]["name"]} 
+                                      onChange={(event) => this.updatePlayerName(key, event.target.value)}
+                                      className="ml-2"></input>
+                              </label>
+                            </div>
+                            <div className="mx-2">
+                              <label>
+                                Icon: <i className={this.state.players[key]["iconClass"]} style={{fontSize: 25, color: this.state.players[key]["iconColor"]}}></i>
+                                <button className="btn btn-primary py-1 mx-2" onClick={() => this.openIconModal(key)}>edit</button>
+                              </label>
+                            </div>
+
+                            <div className="form-check form-switch">
+                              <input className="form-check-input" 
+                                    type="checkbox" 
+                                    id="flexSwitchCheckDefault" 
+                                    onChange={() => this.toggleIsABot(key)} 
+                                    checked={this.state.players[key]["isABot"]}
+                                    disabled={key <= 1 ? true : false}></input>
+                              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">is a bot</label>
+                            </div>
+                            
+                            
                           </div>
-                          <div className="mx-2">
-                            <label>
-                              Icon: <i className={this.state.players[key]["iconClass"]} style={{fontSize: 25, color: this.state.players[key]["iconColor"]}}></i>
-                              <button className="btn btn-primary py-1 mx-2" onClick={() => this.openIconModal(key)}>edit</button>
-                            </label>
-                          </div>
-                          <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={() => this.toggleIsABot(key)} checked={this.state.players[key]["isABot"]}></input>
-                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">is a bot</label>
-                          </div>
-                          
-                          
                         </div>
-                        </>
                       )}
                     </div>
                     <div className="text-center mt-3">

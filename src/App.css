@@ -39,8 +39,17 @@
   background-color: blue;
 }
 
+.railroads{
+  background-color: gray;
+}
+
+.utilities{
+  background-color: rgb(209, 208, 208);
+}
+
 .property-set{
   min-width: 20%;
+  min-height: 20%;
   color: white;
 }
 

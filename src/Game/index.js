@@ -8,14 +8,13 @@ class Game extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            numPlayers: 2,
+            numPlayers: Object.keys(this.props.players).length,
             currentPlayer: 1,
             waitingToRoll: true,
             lastRoll: [1,1],
             consecutiveTurns: 0,
             newRoll: false,
             showModal: false,
-            awaitingPurchaseDecision: false,
             players: this.props.players,
             boardPositions: {
                 0: {
@@ -37,7 +36,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 1,
+                    "ownedBy": null,
                     "baseRent": 2,
                     "propertiesInSet": [1, 3],
                     "rentMultiplier": [1, 5, 15, 45, 80, 125],
@@ -61,7 +60,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 1,
+                    "ownedBy": null,
                     "baseRent": 4,
                     "propertiesInSet": [1, 3],
                     "rentMultiplier": [1, 5, 15, 45, 80, 125]
@@ -94,12 +93,12 @@ class Game extends React.Component {
                     "name": "Oriental Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 100,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 2,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -119,12 +118,12 @@ class Game extends React.Component {
                     "name": "Vermont Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 100,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 2,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -134,12 +133,12 @@ class Game extends React.Component {
                     "name": "Connecticut Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 120,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 2,
                     "baseRent": 8,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 12.5, 37.5, 56.25, 75]
@@ -174,7 +173,7 @@ class Game extends React.Component {
                     "name": "Electric Company",
                     "role": "utility",
                     "propertySet": "utilities",
-                    "canPurchase": false,
+                    "canPurchase": true,
                     "purchasePrice": 150,
                     "hitCount": 0,
                     "ownedBy": null,
@@ -550,7 +549,17 @@ class Game extends React.Component {
         this.setState({showModal: !this.state.showModal})
     }
 
-    rollDice(){
+    simulateTurn(pid){
+        console.log("simulating turn for Player #", pid)
+        let dicePair = this.rollDice(pid)
+        console.log("dicePair simulated: ", dicePair)
+        this.payRentIfOwed(pid, dicePair)
+        this.makePropertyPurchaseDecision(pid)
+        this.makeHomePurchaseDecision(pid)
+    }
+
+    rollDice(pid){
+        console.log("pid: ", pid)
         let d1 = Math.floor(Math.random() * 6) + 1
         let d2 = Math.floor(Math.random() * 6) + 1
         let dicePair = [d1, d2]
@@ -558,11 +567,11 @@ class Game extends React.Component {
         let consecutiveTurns = this.state.consecutiveTurns
         consecutiveTurns+= 1
         this.setState({ newRoll: true, lastRoll: dicePair, consecutiveTurns: consecutiveTurns, waitingToRoll: false})
-        if(! players[this.state.currentPlayer]["in-jail"]){
-            this.movePlayer(dicePair)
+        if(! players[pid]["in-jail"]){
+            this.movePlayer(pid, dicePair)
         }else{
             if(d1 === d2){
-                players[this.state.currentPlayer]["in-jail"] = false
+                players[pid]["in-jail"] = false
                 this.setState({
                     players: players,
                     rollMessage: "rolled doubles and is released from jail!"
@@ -574,7 +583,42 @@ class Game extends React.Component {
             }
         }
         this.setState({showModal: true})
+
+        return dicePair
         
+    }
+
+    movePlayer(pid, dicePair){
+        let players = this.state.players
+        let boardPositions = this.state.boardPositions
+        let oldPosition = players[pid]["position"]
+        let currPosition = oldPosition
+        let destination = (currPosition + dicePair[0] + dicePair[1]) % 40
+
+        // while(currPosition !== destination){
+        //     currPosition = (currPosition + 1)%40
+        //     players[pid]["position"] = currPosition
+        //     this.setState({players: players})
+        // }
+        players[pid]["position"] = destination
+        boardPositions[destination]["hitCount"] += 1
+        
+        
+        if(destination === 30){           // player lands on "go to jail"
+            console.log("Player #", pid, " landed on go to jail!! --> send to JAIL")
+            players[pid]["position"] = 10
+            players[pid]["in-jail"] = true
+            boardPositions[10]["hitCount"] += 1
+        }else if(destination < oldPosition){    //player passed go (collect $200)
+            console.log("Player #", pid, " passed start --> collect $200")
+            players[pid]["balance"] += 200
+        }
+        
+        this.setState({
+            boardPositions: boardPositions,
+            players: players
+        })
+    
     }
 
     endTurn(){
@@ -583,30 +627,37 @@ class Game extends React.Component {
             this.setState({
                 waitingToRoll: true,
                 newRoll: false,
-                awaitingPurchaseDecision: false,
                 consecutiveTurns: 0,
                 lastRoll: [0,0],
                 showModal: false
             })
+            if(this.state.players[this.state.currentPlayer]["isABot"]){
+                this.simulateTurn(this.state.currentPlayer)
+            }
         }else{
-            console.log("ending turn")
+            
             let currentPlayer = this.state.currentPlayer
             let nextPlayer = currentPlayer + 1
             if(nextPlayer > this.state.numPlayers){
                 nextPlayer = 1
             }
+            console.log("ending turn: currentPlayer: ",currentPlayer, "nextPlayer: ", nextPlayer)
             this.setState({
                 currentPlayer: nextPlayer,
                 waitingToRoll: true,
                 newRoll: false,
-                awaitingPurchaseDecision: false,
                 consecutiveTurns: 0,
                 lastRoll: [0,0],
                 showModal: false
             })
+            if(this.state.players[nextPlayer]["isABot"]){
+                this.simulateTurn(nextPlayer)
+            }
         }
         
     }
+
+    
 
     getRentPrice(position, diceTotal){
         let owner = this.state.boardPositions[position]["ownedBy"]
@@ -645,10 +696,10 @@ class Game extends React.Component {
         return Math.round(rentOwed)
     }
 
-    makePropertyPurchaseDecision(){
-        let currentPlayer = this.state.currentPlayer
-        let position = this.state.players[currentPlayer]["position"]
+    makePropertyPurchaseDecision(pid){
+        let currentPlayer = pid
         let players = this.state.players
+        let position = players[currentPlayer]["position"]
         let boardPositions = this.state.boardPositions
 
         if(boardPositions[position]["canPurchase"]){
@@ -673,9 +724,10 @@ class Game extends React.Component {
         this.setState({boardPositions: boardPositions, players: players})
     }
 
-    makeHomePurchaseDecision(){
+    makeHomePurchaseDecision(pid){
         //check which properties are currently owned and decide to purchase houses:
-        let ownedProperties = this.state.players[this.state.currentPlayer]["properties"]
+        let currentPlayer = pid
+        let ownedProperties = this.state.players[currentPlayer]["properties"]
         let fullSets = []
         let boardPositions = this.state.boardPositions
         let players = this.state.players
@@ -688,58 +740,65 @@ class Game extends React.Component {
                 }
             }
         }
-
-        for(let s in fullSets){
-            for(let pos in s){
-                if(boardPositions[pos]["numHouses"] < 5 && players[this.state.currentPlayer]["balance"] > (2.5 * boardPositions[pos]["houseCost"])){ //buy a house
-                    console.log("Player #", this.state.currentPlayer, " bought a house for: ", boardPositions[pos]["name"])
-                    players[this.state.currentPlayer]["balance"] -= boardPositions[pos]["houseCost"]
-                    boardPositions[pos]["numHouses"] += 1
+        console.log(fullSets)
+        // fullSets = [
+        //     [6,8,9]
+        // ]
+        for(let setIndex in fullSets){
+            console.log("setIndex: ", setIndex)
+            for(let indexInSet in fullSets[setIndex]){
+                console.log("indexInSet: ", indexInSet)
+                if(boardPositions[ fullSets[setIndex][indexInSet] ]["numHouses"] < 5 && players[currentPlayer]["balance"] > (2.5 * boardPositions[ fullSets[setIndex][indexInSet] ]["houseCost"])){ //buy a house
+                    console.log("Player #", currentPlayer, " bought a house for: ", boardPositions[ fullSets[setIndex][indexInSet] ]["name"])
+                    players[currentPlayer]["balance"] -= boardPositions[ fullSets[setIndex][indexInSet] ]["houseCost"]
+                    boardPositions[ fullSets[setIndex][indexInSet] ]["numHouses"] += 1
                     this.setState({boardPositions: boardPositions, players: players})
+                }else{
+                    console.log("Player #", currentPlayer, " cant afford a house for: ", boardPositions[ fullSets[setIndex][indexInSet] ]["name"])
                 }
             }
         }
     }
 
-    //make a pay rent function: no params, current user pays RENT to the owner of on their current position
-    //make a pay tax function: no params, current user pays $100 in tax
 
 
-    payRentIfOwed(dicePair){
-        //console.log("paying rent if owed")
+
+    payRentIfOwed(pid, dicePair){
+
+        let currentPlayer = pid
         let players = this.state.players
         let boardPositions = this.state.boardPositions
-        let position = players[this.state.currentPlayer]["position"]
+        let position = players[currentPlayer]["position"]
         let rentPrice = 0
     
         if(boardPositions[position]["role"] === "utility" || boardPositions[position]["role"] === "railroad" || boardPositions[position]["role"] === "property"){
      
             let propertyOwner = boardPositions[position]["ownedBy"]
-            if(boardPositions[position]["ownedBy"] && boardPositions[position]["ownedBy"] !== this.state.currentPlayer){  //if there is an owner and it is not the player
+            if(boardPositions[position]["ownedBy"] && boardPositions[position]["ownedBy"] !== currentPlayer){  //if there is an owner and it is not the player
                 //print("Player #", pid, " owes rent -->")
                 console.log("player owes rent!")
-                rentPrice = this.getRentPrice(players[this.state.currentPlayer]["position"], dicePair[0]+dicePair[1])
+                rentPrice = this.getRentPrice(players[currentPlayer]["position"], dicePair[0]+dicePair[1])
                 if(rentPrice > 0){
-                    console.log("Player #", this.state.currentPlayer, " pays $", rentPrice," in rent at ", boardPositions[position]["name"])
-                    players[this.state.currentPlayer]["balance"] = players[this.state.currentPlayer]["balance"] - rentPrice
+                    console.log("Player #", currentPlayer, " pays $", rentPrice," in rent at ", boardPositions[position]["name"])
+                    players[currentPlayer]["balance"] = players[currentPlayer]["balance"] - rentPrice
                     players[boardPositions[position]["ownedBy"]]["balance"] = players[boardPositions[position]["ownedBy"]]["balance"] + rentPrice
                 }
             }
         }else if(boardPositions[position]["role"] === "tax"){
-            console.log("Player #", this.state.currentPlayer, " owes taxes --> pay $100")
-            players[this.state.currentPlayer]["balance"] -= 100
+            console.log("Player #", currentPlayer, " owes taxes --> pay $100")
+            players[currentPlayer]["balance"] -= 100
         }
         
-        if(players[this.state.currentPlayer]["balance"] < 0){
+        if(players[currentPlayer]["balance"] < 0){
             console.log("out of money!")
         }
 
         this.setState({players: players})
         //this.makePropertyPurchaseDecision()
         //this.makeHomePurchaseDecision()
-        if(dicePair[0] !== dicePair[1] || players[this.state.currentPlayer]["in-jail"] || this.state.consecutiveTurns >= 3){
-            this.endTurn()
-        }
+        // if(dicePair[0] !== dicePair[1] || players[this.state.currentPlayer]["in-jail"] || this.state.consecutiveTurns >= 3){
+        //     this.endTurn()
+        // }
         
 
     }
@@ -756,39 +815,7 @@ class Game extends React.Component {
         this.setState({boardPositions: boardPositions, players: players})
     }
 
-    movePlayer(dicePair){
-        let players = this.state.players
-        let boardPositions = this.state.boardPositions
-        let oldPosition = players[this.state.currentPlayer]["position"]
-        let currPosition = oldPosition
-        let destination = (currPosition + dicePair[0] + dicePair[1]) % 40
-
-        while(currPosition !== destination){
-            currPosition = (currPosition + 1)%40
-            players[this.state.currentPlayer]["position"] = currPosition
-            this.setState({players: players})
-        }
-        boardPositions[destination]["hitCount"] += 1
-        
-        if(destination === 30){           // player lands on "go to jail"
-            console.log("Player #", this.state.currentPlayer, " landed on go to jail!! --> send to JAIL")
-            players[this.state.currentPlayer]["position"] = 10
-            players[this.state.currentPlayer]["in-jail"] = true
-            boardPositions[10]["hitCount"] += 1
-        }else if(destination < oldPosition){    //player passed go (collect $200)
-            console.log("Player #", this.state.currentPlayer, " passed start --> collect $200")
-            players[this.state.currentPlayer]["balance"] += 200
-        }
-        
-        this.setState({
-            boardPositions: boardPositions,
-            players: players
-        })
-
-        //this.payRentIfOwed(dicePair)
     
-        
-    }
 
     endGame(){
         console.log("GAME OVER!")
@@ -804,7 +831,7 @@ class Game extends React.Component {
                            currentPlayer={this.state.currentPlayer}
                            toggleModal={() => this.toggleModal()}
                            getRent={() => this.getRentPrice(this.state.players[this.state.currentPlayer]["position"], this.state.lastRoll[0] + this.state.lastRoll[1])}
-                           payRent={() => this.payRentIfOwed(this.state.lastRoll)}
+                           payRent={() => this.payRentIfOwed(this.state.currentPlayer, this.state.lastRoll)}
                            purchaseProperty={() => this.makePropertyPurchase()}
                            endGame={() => this.endGame()}
                            endTurn={() => this.endTurn()}
@@ -824,7 +851,7 @@ class Game extends React.Component {
                               waitingToRoll={this.state.waitingToRoll}
                               lastRoll={this.state.lastRoll}
                               newRoll={this.state.newRoll}
-                              rollDice={() => this.rollDice()}/>
+                              rollDice={(pid) => this.rollDice(pid)}/>
                 </div>
             </div>
         </div>

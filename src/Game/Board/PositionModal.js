@@ -85,12 +85,23 @@ class PositionModal extends React.Component {
                     {this.state.insufficientFunds ?
                             <p style={{color: "red"}}>* insufficient funds</p>
                     : null}
+                    {this.props.players[this.props.currentPlayer]["isABot"] ?
+                        <p style={{color: "red"}}>* Bot paid ${this.state.rentOwed} in rent</p>
+                    : null}
                     <div>
-                        <Button variant="danger" 
-                                disabled={this.state.insufficientFunds} 
-                                onClick={() => this.payAndContinue()}>
-                            Pay ${this.state.rentOwed} in rent
-                        </Button>
+                        {!this.props.players[this.props.currentPlayer]["isABot"] ?
+                            <Button variant="danger" 
+                                    disabled={this.state.insufficientFunds} 
+                                    onClick={() => this.payAndContinue()}>
+                                Pay ${this.state.rentOwed} in rent
+                            </Button>
+                        :
+                            <Button variant="secondary" 
+                                    disabled={this.state.insufficientFunds} 
+                                    onClick={() => this.props.endTurn()}>
+                                Next
+                            </Button>
+                        }
                     </div>
                     
 
