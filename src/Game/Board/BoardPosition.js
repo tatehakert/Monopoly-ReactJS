@@ -16,7 +16,7 @@ function BoardPosition(props) {
             <div className="text-center">
                 {Object.keys(props.players).map((key, index) => {
                     if(props.players[key]["position"] === props.data["pos"]){
-                        return(<i className={props.players[key]["iconClass"]} style={{color: props.players[key]["iconColor"], fontSize: 25}}></i>);
+                        return(<i className={`mx-1 ${props.players[key]["iconClass"]}`} style={{color: props.players[key]["iconColor"], fontSize: 25}}></i>);
                     }else{
                         return(null);
                     }

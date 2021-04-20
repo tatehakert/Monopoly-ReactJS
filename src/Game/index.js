@@ -16,48 +16,7 @@ class Game extends React.Component {
             newRoll: false,
             showModal: false,
             awaitingPurchaseDecision: false,
-            players: {
-                1: {
-                    "position": 0,
-                    "balance": 1200,
-                    "in-jail": false,
-                    "hasGetOutOfJailCard": false,
-                    "properties": {
-                        "utilities": [],
-                        "railroads": [],
-                        "purple": [],
-                        "sky": [],
-                        "pink": [],
-                        "orange": [],
-                        "red": [],
-                        "yellow": [],
-                        "green": [],
-                        "blue": []
-                    },
-                    "iconClass": "fas fa-horse",
-                    "iconColor": "red"
-                },
-                2: {
-                    "position": 0,
-                    "balance": 1200,
-                    "in-jail": false,
-                    "hasGetOutOfJailCard": false,
-                    "properties": {
-                        "utilities": [],
-                        "railroads": [],
-                        "purple": [],
-                        "sky": [],
-                        "pink": [],
-                        "orange": [],
-                        "red": [],
-                        "yellow": [],
-                        "green": [],
-                        "blue": []
-                    },
-                    "iconClass": "fas fa-coffee",
-                    "iconColor": "blue"
-                }
-            },
+            players: this.props.players,
             boardPositions: {
                 0: {
                     "pos": 0,
@@ -78,7 +37,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 1,
                     "baseRent": 2,
                     "propertiesInSet": [1, 3],
                     "rentMultiplier": [1, 5, 15, 45, 80, 125],
@@ -102,7 +61,7 @@ class Game extends React.Component {
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 1,
                     "baseRent": 4,
                     "propertiesInSet": [1, 3],
                     "rentMultiplier": [1, 5, 15, 45, 80, 125]
