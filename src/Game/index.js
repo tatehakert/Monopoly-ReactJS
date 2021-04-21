@@ -8,56 +8,14 @@ class Game extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            numPlayers: 2,
+            numPlayers: Object.keys(this.props.players).length,
             currentPlayer: 1,
             waitingToRoll: true,
             lastRoll: [1,1],
             consecutiveTurns: 0,
             newRoll: false,
             showModal: false,
-            awaitingPurchaseDecision: false,
-            players: {
-                1: {
-                    "position": 0,
-                    "balance": 1200,
-                    "in-jail": false,
-                    "hasGetOutOfJailCard": false,
-                    "properties": {
-                        "utilities": [],
-                        "railroads": [],
-                        "purple": [],
-                        "sky": [],
-                        "pink": [],
-                        "orange": [],
-                        "red": [],
-                        "yellow": [],
-                        "green": [],
-                        "blue": []
-                    },
-                    "iconClass": "fas fa-horse",
-                    "iconColor": "red"
-                },
-                2: {
-                    "position": 0,
-                    "balance": 1200,
-                    "in-jail": false,
-                    "hasGetOutOfJailCard": false,
-                    "properties": {
-                        "utilities": [],
-                        "railroads": [],
-                        "purple": [],
-                        "sky": [],
-                        "pink": [],
-                        "orange": [],
-                        "red": [],
-                        "yellow": [],
-                        "green": [],
-                        "blue": []
-                    },
-                    "iconClass": "fas fa-coffee",
-                    "iconColor": "blue"
-                }
-            },
+            players: this.props.players,
             boardPositions: {
                 0: {
                     "pos": 0,
@@ -215,7 +173,7 @@ class Game extends React.Component {
                     "name": "Electric Company",
                     "role": "utility",
                     "propertySet": "utilities",
-                    "canPurchase": false,
+                    "canPurchase": true,
                     "purchasePrice": 150,
                     "hitCount": 0,
                     "ownedBy": null,
@@ -588,17 +546,18 @@ class Game extends React.Component {
                 0: {
                     "instruction": "Advance to Go (Collect $200) ",
                     "action": "move",
-                    "destiantion": 0,
+                    "destination": 0,
                     "subaction": "receive",
                     "amount": 200,
-                    
+                    "fileName": "Chance - Advance To Go.png"
                 },
                 1: {
-                    "instruction": "Advance to Illinois Ave—If you pass Go, collect $200 ",
+                    "instruction": "Advance to Illinois Ave — If you pass Go, collect $200 ",
                     "action": "move",
                     "destination": 24,
                     "subaction": "recieve",
                     "amount": 200,
+                    "fileName": "Chance - Advance To Illinois Ave.png"
                 },
                 2: {
                     "instruction": "Advance to St. Charles Place – If you pass Go, collect $200 ",
@@ -606,178 +565,200 @@ class Game extends React.Component {
                     "destination": 11, 
                     "subaction": "recieve",
                     "amount": 200,
+                    "fileName": "Chance - Advance To St. Charles Place.png"
                 
                 },
                 3: {
                     "instruction": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown ",
                     "action": "movenearest",
+                    "role": "utility",
                     "destination": [12, 28],
+                    "fileName": "Chance - Advance To Nearest Utility.png"
                     //do something
                 },
                 4: {
                     "instruction": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. ",
-                    "action": "movenearestrailroad",
+                    "action": "movenearest",
+                    "role": "railroad",
                     "destination": [5, 15, 25, 35],
-                    
+                    "fileName": "Chance - Advance To Nearest Railroad.png"
                 },
                 5:{
                     "instruction": "Bank pays you dividend of $50 ",
                     "action": "recieve",
                     "amount": 50,
+                    "fileName": "Chance - Bank Pays You Dividend.png"
                 },
                 6:{
                     "instruction": "Get Out of Jail Free ",
                     "action": "jail",
+                    "subaction": "get-out",
+                    "fileName": "Chance - Get Out of Jail Free.png"
                     //improve this?    
                 },
                 7:{
                     "instruction": "Go Back 3 Spaces ",
                     "action": "go_back",
                     "places": 3,
-                    
+                    "fileName": "Chance - Go Back 3 Spaces.png"  
                 },
                 8: {
-                    "instruction": "Go to Jail–Go directly to Jail–Do not pass Go, do not collect $200 ",
-                    "action": "move",
-                    "destination": 10,    
+                    "instruction": "Go to Jail–Go directly to Jail – Do not pass Go, do not collect $200 ",
+                    "action": "jail",
+                    "subaction": "go-to",
+                    "destination": 10,
+                    "fileName": "Chance - Go Directly To Jail.png"   
                 },
                 9: {
-                    "instruction": "Make general repairs on all your property–For each house pay $25–For each hotel $100 ",
+                    "instruction": "Make general repairs on all your property – For each house pay $25–For each hotel $100 ",
                     "action": "repairs",
                     "house": 25,
                     "hotel": 100,                  
-
+                    "fileName": "Chance - Make General Repairs.png"
                 },
                 10: {
                     "instruction": "Pay poor tax of $15 ",
                     "action": "pay",
                     "amount": 15,
-                    
+                    "fileName": "Chance - Pay Poor Tax.png"
                 },
                 11: {
-                    "instruction": "Take a trip to Reading Railroad–If you pass Go, collect $200 ",
+                    "instruction": "Take a trip to Reading Railroad – If you pass Go, collect $200 ",
                     "action": "move",
                     "destination": 5,
                     "subaction": "recieve",
-                    "amount": 200 
+                    "amount": 200,
+                    "fileName": "Chance - Take A Ride On The Reading.png" 
                 },
                 12: {
-                    "instruction": "Take a walk on the Boardwalk–Advance token to Boardwalk ",
+                    "instruction": "Take a walk on the Boardwalk – Advance token to Boardwalk ",
                     "action": "move",
                     "destination": 39,
-
+                    "fileName": "Chance - Take A Walk On The Boardwalk.png"
                 },
                 13: {
-                    "instruction": "You have been elected Chairman of the Board–Pay each player $50 ",
+                    "instruction": "You have been elected Chairman of the Board – Pay each player $50 ",
                     "action": "chairman",
                     "amount": 50,
-                    
+                    "fileName": "Chance - You Have Been Elected.png"
                 },
                 14: {
-                    "instruction": "Your building and loan matures—Collect $150 ",
+                    "instruction": "Your building and loan matures — Collect $150 ",
                     "action": "recieve",
                     "amount": 150,
-
+                    "fileName": "Chance - Your Building And Loan Matures.png"
                 },
                 15: {
-                    "instruction": "You have won a crossword competition—Collect $100 ",
+                    "instruction": "You have won a crossword competition — Collect $100 ",
                     "action": "recieve",
                     "amount": 100,
-
+                    "fileName": "Community Chest - You Have Won Second Prize In A Beauty Contest.png"
                 }
             },
             communityChestCards: {
                 0: {
                     "instruction": "Advance to Go (Collect $200) ",
                     "action": "move",
-                    "destiantion": 0,
+                    "destination": 0,
+                    "fileName": "Community Chest - Advance To Go.png"
                 },
                 1: {
                     "instruction": "Bank error in your favor—Collect $200 ",
                     "action": "recieve",
                     "amount": 200,
+                    "fileName": "Community Chest - Bank Error In Your Favor.png"
                 },
                 2: {
                     "instruction": "Doctor's fee—Pay $50 ",
                     "action": "pay",
                     "amount": 50, 
+                    "fileName": "Community Chest - Doctor's Fee.png"
                 },
                 3: {
                     "instruction": "From sale of stock you get $50 ",
                     "action": "recieve",
-                    "amount": 50
+                    "amount": 50,
+                    "fileName": "Community Chest - From Sale of Stock.png"
                 },
                 4: {
                     "instruction": "Get Out of Jail Free ",
-                    "action": "jail"
-                    
+                    "action": "jail",
+                    "subaction": "get-out",
+                    "fileName": "Community Chest - Get Out of Jail Free.png"
                 },
                 5:{
                     "instruction": "Go to Jail–Go directly to jail–Do not pass Go–Do not collect $200 ",
-                    "action": "move",
+                    "action": "jail",
+                    "subaction": "go-to",
                     "destination": 10,
+                    "fileName": "Community Chest - Go To Jail.png"
                 },
                 6:{
                     "instruction": "Grand Opera Night—Collect $50 from every player for opening night seats ",
                     "action": "recieveeveryplayer",
-                    "amount": 50,                  
+                    "amount": 50,  
+                    "fileName": "Community Chest - Grand Opera Opening.png"                
                 },
                 7:{
                     "instruction": "Holiday Fund matures—Receive $100 ",
                     "action": "recieve",
                     "amount": 100,
+                    "fileName": "Community Chest - Xmas Fund Matures.png"
                 },
                 8: {
                     "instruction": "Income tax refund–Collect $20 ",
                     "action": "recieve",
-                    "amount": 20,    
+                    "amount": 20,  
+                    "fileName": "Community Chest - Income Tax Refund.png"  
                 },
                 9: {
                     "instruction": "It is your birthday—Collect $10 ",
                     "action": "recieve",
-                    "amount": 10,                 
-
+                    "amount": 10,  
+                    "fileName": "Community Chest - You Inherit $100.png"               
                 },
                 10: {
                     "instruction": "Life insurance matures–Collect $100 ",
                     "action": "recieve",
                     "amount": 100,
-                    
+                    "fileName": "Community Chest - Life Insurance Matures.png"               
                 },
                 11: {
                     "instruction": "Pay hospital fees of $100 ",
                     "action": "pay",
-                    "amount": 100 
+                    "amount": 100,
+                    "fileName": "Community Chest - Pay Hospital.png" 
                 },
                 12: {
                     "instruction": "Pay school fees of $150 ",
                     "action": "pay",
                     "amount": 150,
-
+                    "fileName": "Community Chest - Pay School Tax.png"
                 },
                 13: {
                     "instruction": "Receive $25 consultancy fee ",
                     "action": "recieve",
                     "amount": 25,
-                    
+                    "fileName": "Community Chest - Receive For Services.png"
                 },
                 14: {
                     "instruction": "You are assessed for street repairs–$40 per house–$115 per hotel ",
                     "action": "repairs",
                     "house": 40,
                     "hotel": 115,
-
+                    "fileName": "Community Chest - You Are Assessed For Street Repairs.png"
                 },
                 15: {
                     "instruction": "You have won second prize in a beauty contest–Collect $10 ",
                     "action": "recieve",
                     "amount": 10,
-
+                    "fileName": "Community Chest - You Have Won Second Prize In A Beauty Contest.png"
                 },
                 16: {
                     "instruction": "You inherit 100 ",
                     "action": "recieve",
                     "amount": 100,
+                    "fileName": "Community Chest - You Inherit $100.png"
                 }   
             }
         }
@@ -787,19 +768,63 @@ class Game extends React.Component {
         this.setState({showModal: !this.state.showModal})
     }
 
-    rollDice(){
+
+    payBail(pid){
+        let players = this.state.players
+        if(players[pid]["in-jail"]){
+            if(players[pid]["balance"] >= 50){
+                players[pid]["balance"] = players[pid]["balance"] - 50
+                players[pid]["in-jail"] = false
+                this.setState({players: players})
+                console.log("player", pid, " paid $50 in bail to be released from jail")
+            }else{
+                console.log("error: player", pid, " called payBail() but didn't have the funds")
+            }         
+            
+        }else{
+            console.log("error: payBail(", pid,") called when player is not in jail")
+        }
+    }
+
+    useGetOutOfJailCard(pid){
+        let players = this.state.players
+        if(players[pid]["GOOJFC"] > 0){
+            players[pid]["GOOJFC"] = players[pid]["GOOJFC"] - 1
+            players[pid]["in-jail"] = false
+            this.setState({players: players})
+            console.log("player", pid, " called useGetOutJailFreeCard()")
+        }else{
+            console.log("error: useGetOutJailFreeCard(", pid,") called without a card")
+        }
+    }
+
+    simulateTurn(pid){
+        console.log("simulating turn for Player #", pid)
+        let dicePair = this.rollDice(pid)
+        console.log("dicePair simulated: ", dicePair)
+        this.payRentIfOwed(pid, dicePair)
+        this.makePropertyPurchaseDecision(pid)
+        this.makeHomePurchaseDecision(pid)
+    }
+
+    rollDice(pid){
+        console.log("pid: ", pid)
         let d1 = Math.floor(Math.random() * 6) + 1
         let d2 = Math.floor(Math.random() * 6) + 1
         let dicePair = [d1, d2]
         let players = this.state.players
         let consecutiveTurns = this.state.consecutiveTurns
         consecutiveTurns+= 1
+        // let inJail = players[pid]["in-jail"]
+        // if(players[pid]["isABot"]){
+            
+        // }
         this.setState({ newRoll: true, lastRoll: dicePair, consecutiveTurns: consecutiveTurns, waitingToRoll: false})
-        if(! players[this.state.currentPlayer]["in-jail"]){
-            this.movePlayer(dicePair)
+        if(! players[pid]["in-jail"]){
+            this.movePlayer(pid, dicePair)
         }else{
             if(d1 === d2){
-                players[this.state.currentPlayer]["in-jail"] = false
+                players[pid]["in-jail"] = false
                 this.setState({
                     players: players,
                     rollMessage: "rolled doubles and is released from jail!"
@@ -811,39 +836,147 @@ class Game extends React.Component {
             }
         }
         this.setState({showModal: true})
+
+        return dicePair
         
     }
 
+    movePlayer(pid, dicePair){
+        let players = this.state.players
+        let boardPositions = this.state.boardPositions
+        let oldPosition = players[pid]["position"]
+        let currPosition = oldPosition
+        let destination = (currPosition + dicePair[0] + dicePair[1]) % 40
+
+        players[pid]["position"] = destination
+        boardPositions[destination]["hitCount"] += 1
+        
+        
+        if(destination === 30){           // player lands on "go to jail"
+            console.log("Player #", pid, " landed on go to jail!! --> send to JAIL")
+            players[pid]["position"] = 10
+            players[pid]["in-jail"] = true
+            boardPositions[10]["hitCount"] += 1
+        }else if(destination === 7 || destination === 22 || destination === 36){ //chance
+            console.log("landed at chance")
+            this.drawChanceCard()
+        }else if(destination === 2 || destination === 17 || destination === 33){ //community chest
+            console.log("landed at community chest")
+            this.drawCommunityChestCard()
+        }
+        
+        if(destination < oldPosition){    //player passed go (collect $200)
+            console.log("Player #", pid, " passed start --> collect $200")
+            players[pid]["balance"] = players[pid]["balance"] + 200
+        }
+        
+        this.setState({
+            boardPositions: boardPositions,
+            players: players
+        })
+    
+    }
+
+    // movePlayer(dicePair){
+    //     let players = this.state.players
+    //     let boardPositions = this.state.boardPositions
+    //     let oldPosition = players[this.state.currentPlayer]["position"]
+    //     let currPosition = oldPosition
+    //     let destination = (currPosition + dicePair[0] + dicePair[1]) % 40
+
+    //     while(currPosition !== destination){
+    //         currPosition = (currPosition + 1)%40
+    //         players[this.state.currentPlayer]["position"] = currPosition
+    //         this.setState({players: players})
+    //     }
+    //     players[pid]["position"] = destination
+    //     boardPositions[destination]["hitCount"] += 1
+
+    //     var chances = [7, 22, 36]
+    //     var communityChests = [33, 17, 2]
+    //     var communityChest = false
+    //     var chance = false
+    //     for (var i = 0; i < chances.length; i++) {
+    //         if (destination === chances[i]) {
+    //             chance = true;
+    //         }
+    //     }
+    //     for (var i = 0; i < communityChests.length; i++) {
+    //         if (destination === communityChests[i]) {
+    //             communityChest = true;
+    //         }
+    //     }
+    //     if(destination === 30){           // player lands on "go to jail"
+    //         console.log("Player #", this.state.currentPlayer, " landed on go to jail!! --> send to JAIL")
+    //         players[this.state.currentPlayer]["position"] = 10
+    //         players[this.state.currentPlayer]["in-jail"] = true
+    //         boardPositions[10]["hitCount"] += 1
+    //     }else if(destination < oldPosition){    //player passed go (collect $200)
+    //         console.log("Player #", this.state.currentPlayer, " passed start --> collect $200")
+    //         players[this.state.currentPlayer]["balance"] += 200
+    //     }
+    //     else if (boardPositions[destination]["role"] === "chance") {
+
+    //         this.chanceFunc()
+    //     }
+    //     else if (boardPositions[destination]["role"] === "community chest") {
+
+    //         this.communityChestFunc()
+    //     }
+        
+    //     this.setState({
+    //         boardPositions: boardPositions,
+    //         players: players
+    //     })
+
+    //     //this.payRentIfOwed(dicePair)
+    
+        
+    // }
+
     endTurn(){
+        let players = this.state.players
+
         if(this.state.lastRoll[0] === this.state.lastRoll[1] && this.state.consecutiveTurns < 3){
             console.log("Player gets to roll again")
+            players[this.state.currentPlayer]["EVENTS"] = []
             this.setState({
+                players: players,
                 waitingToRoll: true,
                 newRoll: false,
-                awaitingPurchaseDecision: false,
                 consecutiveTurns: 0,
                 lastRoll: [0,0],
                 showModal: false
             })
+            if(this.state.players[this.state.currentPlayer]["isABot"]){
+                this.simulateTurn(this.state.currentPlayer)
+            }
         }else{
-            console.log("ending turn")
+            
             let currentPlayer = this.state.currentPlayer
             let nextPlayer = currentPlayer + 1
             if(nextPlayer > this.state.numPlayers){
                 nextPlayer = 1
             }
+            console.log("ending turn: currentPlayer: ",currentPlayer, "nextPlayer: ", nextPlayer)
+            players[this.state.currentPlayer]["EVENTS"] = []
             this.setState({
+                players: players,
                 currentPlayer: nextPlayer,
                 waitingToRoll: true,
                 newRoll: false,
-                awaitingPurchaseDecision: false,
                 consecutiveTurns: 0,
                 lastRoll: [0,0],
                 showModal: false
             })
+            if(this.state.players[nextPlayer]["isABot"]){
+                this.simulateTurn(nextPlayer)
+            }
         }
         
     }
+
+    
 
     getRentPrice(position, diceTotal){
         let owner = this.state.boardPositions[position]["ownedBy"]
@@ -882,10 +1015,10 @@ class Game extends React.Component {
         return Math.round(rentOwed)
     }
 
-    makePropertyPurchaseDecision(){
-        let currentPlayer = this.state.currentPlayer
-        let position = this.state.players[currentPlayer]["position"]
+    makePropertyPurchaseDecision(pid){
+        let currentPlayer = pid
         let players = this.state.players
+        let position = players[currentPlayer]["position"]
         let boardPositions = this.state.boardPositions
 
         if(boardPositions[position]["canPurchase"]){
@@ -895,6 +1028,24 @@ class Game extends React.Component {
                 boardPositions[position]["canPurchase"] = false
                 boardPositions[position]["ownedBy"] = currentPlayer
                 players[currentPlayer]["properties"][boardPositions[position]["propertySet"]].push(position)
+                
+                let newEvent = {
+                    type: "purchase",
+                    subtype: "property",
+                    position: position
+                }
+
+                players[currentPlayer]["EVENTS"].push(newEvent)
+                this.setState({players: players, boardPositions: boardPositions})
+            }else{
+                let newEvent = {
+                    type: "passOnPurchase",
+                    subtype: "property",
+                    position: position
+                }
+
+                players[currentPlayer]["EVENTS"].push(newEvent)
+                this.setState({players: players})
             }
         }
     }
@@ -910,9 +1061,10 @@ class Game extends React.Component {
         this.setState({boardPositions: boardPositions, players: players})
     }
 
-    makeHomePurchaseDecision(){
+    makeHomePurchaseDecision(pid){
         //check which properties are currently owned and decide to purchase houses:
-        let ownedProperties = this.state.players[this.state.currentPlayer]["properties"]
+        let currentPlayer = pid
+        let ownedProperties = this.state.players[currentPlayer]["properties"]
         let fullSets = []
         let boardPositions = this.state.boardPositions
         let players = this.state.players
@@ -925,61 +1077,62 @@ class Game extends React.Component {
                 }
             }
         }
-
-        for(let s in fullSets){
-            for(let pos in s){
-                if(boardPositions[pos]["numHouses"] < 5 && players[this.state.currentPlayer]["balance"] > (2.5 * boardPositions[pos]["houseCost"])){ //buy a house
-                    console.log("Player #", this.state.currentPlayer, " bought a house for: ", boardPositions[pos]["name"])
-                    players[this.state.currentPlayer]["balance"] -= boardPositions[pos]["houseCost"]
-                    boardPositions[pos]["numHouses"] += 1
+        console.log(fullSets)
+        // fullSets = [
+        //     [6,8,9]
+        // ]
+        for(let setIndex in fullSets){
+            console.log("setIndex: ", setIndex)
+            for(let indexInSet in fullSets[setIndex]){
+                console.log("indexInSet: ", indexInSet)
+                if(boardPositions[ fullSets[setIndex][indexInSet] ]["numHouses"] < 5 && players[currentPlayer]["balance"] > (2.5 * boardPositions[ fullSets[setIndex][indexInSet] ]["houseCost"])){ //buy a house
+                    console.log("Player #", currentPlayer, " bought a house for: ", boardPositions[ fullSets[setIndex][indexInSet] ]["name"])
+                    players[currentPlayer]["balance"] -= boardPositions[ fullSets[setIndex][indexInSet] ]["houseCost"]
+                    boardPositions[ fullSets[setIndex][indexInSet] ]["numHouses"] += 1
                     this.setState({boardPositions: boardPositions, players: players})
+                }else{
+                    console.log("Player #", currentPlayer, " cant afford a house for: ", boardPositions[ fullSets[setIndex][indexInSet] ]["name"])
                 }
             }
         }
     }
 
-    //make a pay rent function: no params, current user pays RENT to the owner of on their current position
-    //make a pay tax function: no params, current user pays $100 in tax
 
 
-    payRentIfOwed(dicePair){
-        //console.log("paying rent if owed")
+
+    payRentIfOwed(pid, dicePair){
+
+        let currentPlayer = pid
         let players = this.state.players
         let boardPositions = this.state.boardPositions
-        let position = players[this.state.currentPlayer]["position"]
+        let position = players[currentPlayer]["position"]
         let rentPrice = 0
     
         if(boardPositions[position]["role"] === "utility" || boardPositions[position]["role"] === "railroad" || boardPositions[position]["role"] === "property"){
      
             let propertyOwner = boardPositions[position]["ownedBy"]
-            if(boardPositions[position]["ownedBy"] && boardPositions[position]["ownedBy"] !== this.state.currentPlayer){  //if there is an owner and it is not the player
+            if(boardPositions[position]["ownedBy"] && boardPositions[position]["ownedBy"] !== currentPlayer){  //if there is an owner and it is not the player
                 //print("Player #", pid, " owes rent -->")
                 console.log("player owes rent!")
-                rentPrice = this.getRentPrice(players[this.state.currentPlayer]["position"], dicePair[0]+dicePair[1])
+                rentPrice = this.getRentPrice(players[currentPlayer]["position"], dicePair[0]+dicePair[1])
                 if(rentPrice > 0){
-                    console.log("Player #", this.state.currentPlayer, " pays $", rentPrice," in rent at ", boardPositions[position]["name"])
-                    players[this.state.currentPlayer]["balance"] = players[this.state.currentPlayer]["balance"] - rentPrice
+                    console.log("Player #", currentPlayer, " pays $", rentPrice," in rent at ", boardPositions[position]["name"])
+                    players[currentPlayer]["balance"] = players[currentPlayer]["balance"] - rentPrice
                     players[boardPositions[position]["ownedBy"]]["balance"] = players[boardPositions[position]["ownedBy"]]["balance"] + rentPrice
                 }
             }
         }else if(boardPositions[position]["role"] === "tax"){
-            console.log("Player #", this.state.currentPlayer, " owes taxes --> pay $100")
-            players[this.state.currentPlayer]["balance"] -= 100
+            console.log("Player #", currentPlayer, " owes taxes --> pay $100")
+            players[currentPlayer]["balance"] -= 100
         }
         
-        if(players[this.state.currentPlayer]["balance"] < 0){
+        if(players[currentPlayer]["balance"] < 0){
             console.log("out of money!")
         }
 
         this.setState({players: players})
-        //this.makePropertyPurchaseDecision()
-        //this.makeHomePurchaseDecision()
-        if(dicePair[0] !== dicePair[1] || players[this.state.currentPlayer]["in-jail"] || this.state.consecutiveTurns >= 3){
-            this.endTurn()
-        }
-        
-
     }
+
     communityChestFunc() {
         let players = this.state.players
         let boardPositions = this.state.boardPositions
@@ -1062,6 +1215,150 @@ class Game extends React.Component {
         this.setState({players:players})
     }
 
+    drawChanceCard(){
+        var randNum = Math.floor(Math.random() * 16)
+        this.setState({recentChanceCard: this.state.chanceCards[randNum]})
+    }
+
+    drawCommunityChestCard(){
+        var randNum = Math.floor(Math.random() * 17)
+        this.setState({recentCommunityChestCard: this.state.communityChestCards[randNum]})
+    }
+
+    executeChanceCard(pid, chanceCard){
+        console.log("executing chance card")
+        let players = this.state.players
+        let currPosition = players[pid]["position"]
+
+        if(chanceCard["action"] === "move"){
+            console.log("moving player to position: ", chanceCard["destination"])
+            players[pid]["position"] = chanceCard["destination"]
+        }else if(chanceCard["action"] === "movenearest"){
+            players[pid]["position"] = (players[pid]["position"] + 1)%40
+            while(this.state.boardPositions[players[pid]["position"]]["role"] !== chanceCard["role"]){
+                players[pid]["position"] = (players[pid]["position"] + 1)%40
+            }
+        }else if(chanceCard["action"] === "jail"){
+            if(chanceCard["subaction"] === "go-to"){
+                players[pid]["position"] = 10
+                players[pid]["in-jail"] = true
+            }else if(chanceCard["subaction"] === "get-out"){
+                let numCards = players[pid]["numCards"] || 0
+                numCards = numCards + 1
+                players[pid]["numCards"] = numCards
+            }
+        }else if(chanceCard["action"] === "go_back"){
+            let oldPos = players[pid]["position"]
+            let newPos = players[pid]["position"] - 3
+            if(newPos < 0){
+                newPos = newPos + 40 //if player moves from 2 --> -1, update -1 to be position 39
+            }
+            players[pid]["position"] = newPos
+        }else if(chanceCard["action"] === "recieve"){
+            //credit the card amount
+            players[pid]["balance"] = players[pid]["balance"] + chanceCard["amount"]
+        }else if(chanceCard["action"] === "pay"){
+            //deduct the card amount
+            players[pid]["balance"] = players[pid]["balance"] - chanceCard["amount"]
+        }else if(chanceCard["action"] === "chairman"){
+            for(let player = 1; player <= this.state.numPlayers; player++){
+                if(player !== pid){
+                    //increment other player's balance
+                    players[player]["balance"] = players[player]["balance"] + 50
+                    //decrement the current players balance
+                    players[pid]["balance"] = players[pid]["balance"] - 50
+                }
+            }
+        }else if(chanceCard["action"] === "repairs"){
+            let boardPositions = this.state.boardPositions
+            let numHouses = 0
+            let numHotels = 0
+    
+            for(let pos in boardPositions){
+                if(boardPositions[pos]["role"] === "property" && boardPositions[pos]["ownedBy"] === pid){
+                    if(boardPositions[pos]["numHouses"] === 5){
+                        numHotels = numHotels + 1
+                    }else{
+                        numHouses = numHouses + boardPositions[pos]["numHouses"]
+                    }
+                }
+            }
+            let totalCost = (numHouses*chanceCard["house"]) + (numHotels*chanceCard["hotel"])
+            players[pid]["balance"] = players[pid]["balance"] - totalCost
+        }
+
+        if(players[pid]["position"] < currPosition && chanceCard["action"] !== "jail"){
+            //player passed go --> collect $200
+            players[pid]["balance"] = players[pid]["balance"] + 200
+        }
+        
+
+        this.setState({players: players})
+        //BOT only!!
+        if(players[pid]["isABot"]){
+            this.payRentIfOwed(pid,this.state.lastRoll)
+        }
+        
+    }
+
+    executeCommunityChestCard(pid, communityChestCard){
+        console.log("executing community chest card")
+        let players = this.state.players
+        let currPosition = players[pid]["position"]
+
+        if(communityChestCard["action"] === "move"){
+            players[pid]["position"] = communityChestCard["destination"]
+        }else if(communityChestCard["action"] === "jail"){
+            if(communityChestCard["subaction"] === "go-to"){
+                players[pid]["position"] = 10
+                players[pid]["in-jail"] = true
+            }else if(communityChestCard["subaction"] === "get-out"){
+                let numCards = players[pid]["numCards"] || 0
+                numCards = numCards + 1
+                players[pid]["numCards"] = numCards
+            }
+        }else if(communityChestCard["action"] === "recieve"){
+            //credit the card amount
+            players[pid]["balance"] = players[pid]["balance"] + communityChestCard["amount"]
+        }else if(communityChestCard["action"] === "recieveeveryplayer"){
+            //credit the card amount
+            for(let player = 1; player <= this.state.numPlayers; player++){
+                if(player !== pid){
+                    //decrement other player's balance
+                    players[player]["balance"] = players[player]["balance"] - communityChestCard["amount"]
+                    //increment 
+                    players[pid]["balance"] = players[pid]["balance"] + communityChestCard["amount"]
+                }
+            }
+        }else if(communityChestCard["action"] === "pay"){
+            //deduct the card amount
+            players[pid]["balance"] = players[pid]["balance"] - communityChestCard["amount"]
+        }else if(communityChestCard["action"] === "repairs"){
+            let boardPositions = this.state.boardPositions
+            let numHouses = 0
+            let numHotels = 0
+    
+            for(let pos in boardPositions){
+                if(boardPositions[pos]["role"] === "property" && boardPositions[pos]["ownedBy"] === pid){
+                    if(boardPositions[pos]["numHouses"] === 5){
+                        numHotels = numHotels + 1
+                    }else{
+                        numHouses = numHouses + boardPositions[pos]["numHouses"]
+                    }
+                }
+            }
+            let totalCost = (numHouses*communityChestCard["house"]) + (numHotels*communityChestCard["hotel"])
+            players[pid]["balance"] = players[pid]["balance"] - totalCost
+        }
+
+        if(players[pid]["position"] < currPosition && communityChestCard["action"] !== "jail"){
+            //player passed go --> collect $200
+            players[pid]["balance"] = players[pid]["balance"] + 200
+        }
+
+        this.setState({players: players})
+    }
+
     chanceFunc() {
         let players = this.state.players
         let boardPositions = this.state.boardPositions
@@ -1069,6 +1366,7 @@ class Game extends React.Component {
         var randNum = Math.floor(Math.random() * 16)
         this.setState({recentChance: this.state.chanceCards[randNum]})
         console.log("player got chance card: ", this.state.chanceCards[randNum]["instruction"])
+        
         if (this.state.chanceCards[randNum]["action"] === "move") {
             let oldPos = players[this.state.currentPlayer]["position"]
             let newPos = this.state.chanceCards[randNum]["destination"]
@@ -1098,6 +1396,9 @@ class Game extends React.Component {
         else if (this.state.chanceCards[randNum]["action"] === "go_back") {
             let oldPos = players[this.state.currentPlayer]["position"]
             let newPos = players[this.state.currentPlayer]["position"] - 3
+            if(newPos < 0){
+                newPos = newPos + 40 //if player moves from 2 --> -1, update -1 to be position 39
+            }
             players[this.state.currentPlayer]["position"] = newPos
 
         }
@@ -1146,67 +1447,21 @@ class Game extends React.Component {
         let position = this.state.players[pid]["position"]
         let boardPositions = this.state.boardPositions
         let players = this.state.players
+
+        //deduct the funds
         players[pid]["balance"] -= boardPositions[position]["purchasePrice"]
+
+        //update "canPurchase" and "ownedBy"
         boardPositions[position]["canPurchase"] = false
         boardPositions[position]["ownedBy"] = pid
+
+        //add the property to the player's propertySets
         players[pid]["properties"][boardPositions[position]["propertySet"]].push(position)
+
         this.setState({boardPositions: boardPositions, players: players})
     }
 
-    movePlayer(dicePair){
-        let players = this.state.players
-        let boardPositions = this.state.boardPositions
-        let oldPosition = players[this.state.currentPlayer]["position"]
-        let currPosition = oldPosition
-        let destination = (currPosition + dicePair[0] + dicePair[1]) % 40
-
-        while(currPosition !== destination){
-            currPosition = (currPosition + 1)%40
-            players[this.state.currentPlayer]["position"] = currPosition
-            this.setState({players: players})
-        }
-        boardPositions[destination]["hitCount"] += 1
-        var chances = [7, 22, 36]
-        var communityChests = [33, 17, 2]
-        var communityChest = false
-        var chance = false
-        for (var i = 0; i < chances.length; i++) {
-            if (destination === chances[i]) {
-                chance = true;
-            }
-        }
-        for (var i = 0; i < communityChests.length; i++) {
-            if (destination === communityChests[i]) {
-                communityChest = true;
-            }
-        }
-        if(destination === 30){           // player lands on "go to jail"
-            console.log("Player #", this.state.currentPlayer, " landed on go to jail!! --> send to JAIL")
-            players[this.state.currentPlayer]["position"] = 10
-            players[this.state.currentPlayer]["in-jail"] = true
-            boardPositions[10]["hitCount"] += 1
-        }else if(destination < oldPosition){    //player passed go (collect $200)
-            console.log("Player #", this.state.currentPlayer, " passed start --> collect $200")
-            players[this.state.currentPlayer]["balance"] += 200
-        }
-        else if (boardPositions[destination]["role"] === "chance") {
-
-            this.chanceFunc()
-        }
-        else if (boardPositions[destination]["role"] === "community chest") {
-
-            this.communityChestFunc()
-        }
-        
-        this.setState({
-            boardPositions: boardPositions,
-            players: players
-        })
-
-        //this.payRentIfOwed(dicePair)
     
-        
-    }
     
 
     endGame(){
@@ -1223,15 +1478,17 @@ class Game extends React.Component {
                            currentPlayer={this.state.currentPlayer}
                            //chanceFunc = {() => this.chanceFunc}
                            //communityChestCards = {() => this.communityChestFunc}
-                           recentChance = {this.state.recentChance}
+                           recentChanceCard = {this.state.recentChanceCard}
                            recentCommunityChestCard = {this.state.recentCommunityChestCard}
                            toggleModal={() => this.toggleModal()}
                            getRent={() => this.getRentPrice(this.state.players[this.state.currentPlayer]["position"], this.state.lastRoll[0] + this.state.lastRoll[1])}
-                           payRent={() => this.payRentIfOwed(this.state.lastRoll)}
+                           payRent={() => this.payRentIfOwed(this.state.currentPlayer, this.state.lastRoll)}
                            purchaseProperty={() => this.makePropertyPurchase()}
                            endGame={() => this.endGame()}
                            endTurn={() => this.endTurn()}
-                           buyHouse={(pos) => this.buyHouse(pos)}/>
+                           buyHouse={(pos) => this.buyHouse(pos)}
+                           executeChanceCard={(pid, card) => this.executeChanceCard(pid, card)}
+                           executeCommunityChestCard={(pid, card) => this.executeCommunityChestCard(pid, card)}/>
             : null}
           
 
@@ -1247,7 +1504,8 @@ class Game extends React.Component {
                               waitingToRoll={this.state.waitingToRoll}
                               lastRoll={this.state.lastRoll}
                               newRoll={this.state.newRoll}
-                              rollDice={() => this.rollDice()}/>
+                              rollDice={(pid) => this.rollDice(pid)}
+                              payBail={(pid) => this.payBail(pid)}/>
                 </div>
             </div>
         </div>

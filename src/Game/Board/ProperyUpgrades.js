@@ -27,7 +27,7 @@ class PropertyUpgrades extends React.Component {
                 }
             }
             this.setState({fullSets: fullSets})
-            console.log(fullSets)
+            //console.log(fullSets)
         }
     }
 
