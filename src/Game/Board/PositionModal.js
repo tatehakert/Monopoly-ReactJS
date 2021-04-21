@@ -66,6 +66,9 @@ class PositionModal extends React.Component {
                 {this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["role"] === "chance" ?
                 (this.props.recentChance["instruction"])
                 :(null)}
+                {this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["role"] === "community chest" ?
+                (this.props.recentCommunityChestCard["instruction"])
+                :(null)}
                 Owned by: 
                 { this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["ownedBy"] ? 
                 <>
