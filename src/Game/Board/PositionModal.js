@@ -1,6 +1,7 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import PropertyUpgrades from './ProperyUpgrades';
+import TitleDeed from './TitleDeed';
 
 class PositionModal extends React.Component {
     constructor(props){
@@ -62,7 +63,9 @@ class PositionModal extends React.Component {
                 {this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["name"]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Property Details: <br/>
+                <TitleDeed propertyData={this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]}>
+
+                </TitleDeed>
                 Owned by: 
                 { this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["ownedBy"] ? 
                 <>
