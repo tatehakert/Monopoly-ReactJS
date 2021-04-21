@@ -26,6 +26,7 @@ class App extends React.Component {
             players: {
               1: {
                   "isABot": false,
+                  "EVENTS": [],
                   "name": "Player 1",
                   "position": 0,
                   "balance": startingBalance,
@@ -48,6 +49,7 @@ class App extends React.Component {
               },
               2:{
                 "isABot": true,
+                "EVENTS": [],
                 "name": "Player 2",
                 "position": 0,
                 "balance": startingBalance,
@@ -57,7 +59,7 @@ class App extends React.Component {
                     "utilities": [],
                     "railroads": [],
                     "purple": [],
-                    "sky": [9,8,6],
+                    "sky": [],
                     "pink": [],
                     "orange": [],
                     "red": [],
@@ -82,6 +84,8 @@ class App extends React.Component {
       this.setState({gameStarted: true})
     }
 
+
+
     updateStartingBalance(newVal){
       let players = this.state.players
 
@@ -100,6 +104,7 @@ class App extends React.Component {
         for(let i = this.state.numPlayers; i < newVal; i++){
           newList[i+1] = {
             "isABot": false,
+            "EVENTS": [],
             "name": `Player ${i+1}`,
             "position": 0,
             "balance": this.state.startingBalance,

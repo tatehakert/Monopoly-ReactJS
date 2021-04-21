@@ -93,12 +93,12 @@ class Game extends React.Component {
                     "name": "Oriental Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": false,
+                    "canPurchase": true,
                     "purchasePrice": 100,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 2,
+                    "ownedBy": null,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -118,12 +118,12 @@ class Game extends React.Component {
                     "name": "Vermont Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": false,
+                    "canPurchase": true,
                     "purchasePrice": 100,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 2,
+                    "ownedBy": null,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
@@ -133,12 +133,12 @@ class Game extends React.Component {
                     "name": "Connecticut Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": false,
+                    "canPurchase": true,
                     "purchasePrice": 120,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": 2,
+                    "ownedBy": null,
                     "baseRent": 8,
                     "propertiesInSet": [6, 8, 9],
                     "rentMultiplier": [1, 5, 12.5, 37.5, 56.25, 75]
@@ -549,6 +549,36 @@ class Game extends React.Component {
         this.setState({showModal: !this.state.showModal})
     }
 
+
+    payBail(pid){
+        let players = this.state.players
+        if(players[pid]["in-jail"]){
+            if(players[pid]["balance"] >= 50){
+                players[pid]["balance"] = players[pid]["balance"] - 50
+                players[pid]["in-jail"] = false
+                this.setState({players: players})
+                console.log("player", pid, " paid $50 in bail to be released from jail")
+            }else{
+                console.log("error: player", pid, " called payBail() but didn't have the funds")
+            }         
+            
+        }else{
+            console.log("error: payBail(", pid,") called when player is not in jail")
+        }
+    }
+
+    useGetOutOfJailCard(pid){
+        let players = this.state.players
+        if(players[pid]["GOOJFC"] > 0){
+            players[pid]["GOOJFC"] = players[pid]["GOOJFC"] - 1
+            players[pid]["in-jail"] = false
+            this.setState({players: players})
+            console.log("player", pid, " called useGetOutJailFreeCard()")
+        }else{
+            console.log("error: useGetOutJailFreeCard(", pid,") called without a card")
+        }
+    }
+
     simulateTurn(pid){
         console.log("simulating turn for Player #", pid)
         let dicePair = this.rollDice(pid)
@@ -566,6 +596,10 @@ class Game extends React.Component {
         let players = this.state.players
         let consecutiveTurns = this.state.consecutiveTurns
         consecutiveTurns+= 1
+        // let inJail = players[pid]["in-jail"]
+        // if(players[pid]["isABot"]){
+            
+        // }
         this.setState({ newRoll: true, lastRoll: dicePair, consecutiveTurns: consecutiveTurns, waitingToRoll: false})
         if(! players[pid]["in-jail"]){
             this.movePlayer(pid, dicePair)
@@ -709,6 +743,14 @@ class Game extends React.Component {
                 boardPositions[position]["canPurchase"] = false
                 boardPositions[position]["ownedBy"] = currentPlayer
                 players[currentPlayer]["properties"][boardPositions[position]["propertySet"]].push(position)
+                
+                let newEvent = {
+                    type: "purchase",
+                    subtype: "property",
+                    position: position
+                }
+
+                players[currentPlayer]["EVENTS"].push(newEvent)
             }
         }
     }
@@ -723,6 +765,28 @@ class Game extends React.Component {
 
         this.setState({boardPositions: boardPositions, players: players})
     }
+
+    // payPropertyCost(pid){
+    //     let players = this.state.players
+    //     let boardPositions = this.state.boardPositions
+    //     let numHouses = 0
+    //     let numHotels = 0
+
+    //     for(let pos in boardPositions){
+    //         if(boardPositions[pos]["role"] === "property" && boardPositions[pos]["ownedBy"] === pid){
+    //             if(boardPositions[pos]["numHouses"] === 5){
+    //                 numHotels = numHotels + 1
+    //             }else{
+    //                 numHouses = numHouses + boardPositions[pos]["numHouses"]
+    //             }
+    //         }
+    //     }
+
+    //     let totalCost = (numHouses*50) + (numHotels*100)
+    //     players[pid]["balance"] = players[pid]["balance"] - totalCost
+
+    //     this.setState({players: players})
+    // }
 
     makeHomePurchaseDecision(pid){
         //check which properties are currently owned and decide to purchase houses:
@@ -851,7 +915,8 @@ class Game extends React.Component {
                               waitingToRoll={this.state.waitingToRoll}
                               lastRoll={this.state.lastRoll}
                               newRoll={this.state.newRoll}
-                              rollDice={(pid) => this.rollDice(pid)}/>
+                              rollDice={(pid) => this.rollDice(pid)}
+                              payBail={(pid) => this.payBail(pid)}/>
                 </div>
             </div>
         </div>

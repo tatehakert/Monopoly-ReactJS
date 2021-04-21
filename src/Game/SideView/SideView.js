@@ -33,8 +33,15 @@ function SideView(props) {
                     {props.players[key]["in-jail"] ?
                         <div className="text-center">
                             <p style={{color: "red"}}>in-jail</p>
-                            <button disabled={!props.players[key]["hasGetOutOfJailCard"]} className="btn btn-primary">Use get-out-jail card</button>
-                            <button className="btn btn-success m-1">Pay fine</button>
+                            {props.waitingToRoll && props.currentPlayer === index+1 ?
+                                <div className="d-flex">
+                                    <button className="btn btn-success"
+                                            disabled={props.players[key]["balance"] < 50}
+                                            onClick={() => props.payBail(key)}>Pay fine</button>
+                                    <button className="btn btn-primary mx-1" 
+                                            disabled={!props.players[key]["hasGetOutOfJailCard"]}>Use get-out-jail card</button>
+                                </div>
+                            : null}
                         </div>
                     : null}
                     <h5>    Position: {props.players[key]["position"]}</h5>
