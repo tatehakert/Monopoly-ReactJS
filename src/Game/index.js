@@ -19,13 +19,13 @@ class Game extends React.Component {
             boardPositions: {
                 0: {
                     "pos": 0,
-                    "name": "Start",
+                    "name": null,//"Start",
                     "role": null,
                     "propertySet": null,
                     "canPurchase": false,
                     "purchasePrice": null,
                     "hitCount": 0,
-                    "imageurl": "MonoplyIcons/Start.png"
+                    "imageurl": "MonopolyIcons/Start.png"
                 },
                 1: {
                     "pos": 1,
@@ -307,7 +307,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
-                    "imageurl": "MonopolyIcons/blank.png",
+                    "imageurl": "MonopolyIcons/FreeParking.png",
                 },
                 21: {
                     "pos": 21,

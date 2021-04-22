@@ -1,12 +1,12 @@
 import Houses from './Houses';
 
 function BoardPosition(props) {
-    console.log("image path -> " + props.data["imgPath"])
     return (
-      <div className={`board-position m-0 p-0 h-100 d-flex ${props.data["pos"] < 10 ? " flex-column bottomPos" 
-                                             : props.data["pos"] < 20 ? " flex-row-reverse leftPos" 
-                                             : props.data["pos"] < 30 ? " flex-column-reverse topPos" 
-                                             : "flex-row rightPos"}`}>
+      <div  className={`board-position m-0 p-0 h-100 d-flex ${props.data["pos"] < 10 ? " flex-column bottomPos" 
+            : props.data["pos"] < 20 ? " flex-row-reverse leftPos" 
+            : props.data["pos"] < 30 ? " flex-column-reverse topPos" 
+            : "flex-row rightPos"}`}>
+        
           {props.data["role"] === "property" ? (
               <div className={`d-flex justify-content-center ${ (props.data["pos"] > 10 && props.data["pos"] < 20) || (props.data["pos"] > 30 && props.data["pos"] < 40) ? " flex-column " : " flex-row "} property-set ${props.data["propertySet"]}`}>
                   <Houses propertyData={props.data}/>
@@ -15,35 +15,21 @@ function BoardPosition(props) {
 
 
           <div className="text-center w-100">
-            <p className="mx-1">{props.data.name}</p>
+            <p className="styledText">{props.data.name}</p>
+            {/* { <p className = "helper">{props.data.pos}</p> }  */}
             <div className="text-center">
                 {Object.keys(props.players).map((key, index) => {
                     if(props.players[key]["position"] === props.data["pos"]){
                         return(<i className={`mx-1 ${props.players[key]["iconClass"]}`} 
-                                  style={{color: props.players[key]["iconColor"], fontSize: 25}}
+                                  style={{color: props.players[key]["iconColor"], fontSize: 50}}
                                   key={`player-${key}`}></i>);
                     }else{
                         return(null);
                     }
                 })}
             </div>
-          </div>
-          
-          <div>
-            {/* <img src = {`/${props.data["imgPath"]}`}
-                height = {40}
-                width = {40}
-                alt = {"hahahahha fuck yuuuu"} />  */}
-            {props.data["imageurl"] ? console.log(props.data["imageurl"]) : console.log("err")}
-            
-            <img src = {props.data["imageurl"]}
-                height = {40}
-                width = {40}
-                alt = {"ERR"} ></img>
-          </div>
 
-          
-          
+          </div>
       </div>
     );
   }
