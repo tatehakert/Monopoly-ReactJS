@@ -465,7 +465,7 @@ class Game extends React.Component {
                 },
                 34: {
                     "pos": 34,
-                    "name": "Penisylvania Avenue",
+                    "name": "Pennsylvania Avenue",
                     "role": "property",
                     "propertySet": "green",
                     "canPurchase": true,
@@ -760,7 +760,18 @@ class Game extends React.Component {
                     "amount": 100,
                     "fileName": "Community Chest - You Inherit $100.png"
                 }   
-            }
+            },
+            pendingTrades: [
+                {
+                    senderPID: 1,
+                    offeredProperty: 1,
+                    offeredMoney: 100,
+                    recipientPID: 2,
+                    returnProperty: 39,
+                    returnMoney: 0,
+                    tradeStatus: "pending"
+                }
+            ]
         }
     }
 
@@ -941,6 +952,7 @@ class Game extends React.Component {
             console.log("Player gets to roll again")
             players[this.state.currentPlayer]["EVENTS"] = []
             this.setState({
+                pendingTrades: [],
                 players: players,
                 waitingToRoll: true,
                 newRoll: false,
@@ -961,6 +973,7 @@ class Game extends React.Component {
             console.log("ending turn: currentPlayer: ",currentPlayer, "nextPlayer: ", nextPlayer)
             players[this.state.currentPlayer]["EVENTS"] = []
             this.setState({
+                pendingTrades: [],
                 players: players,
                 currentPlayer: nextPlayer,
                 waitingToRoll: true,
@@ -1015,6 +1028,7 @@ class Game extends React.Component {
         return Math.round(rentOwed)
     }
 
+    
     makePropertyPurchaseDecision(pid){
         let currentPlayer = pid
         let players = this.state.players

@@ -2,6 +2,7 @@ import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import PropertyUpgrades from './ProperyUpgrades';
+import TradeView from './TradeView';
 //import * from './../Cards';
 
 class PositionModal extends React.Component {
@@ -46,6 +47,7 @@ class PositionModal extends React.Component {
                 insufficientFunds: rent > 0 ? (rent > this.props.players[this.props.currentPlayer]["balance"]) : (price > this.props.players[this.props.currentPlayer]["balance"]) 
             })
         }
+        //this.getUndevelopedPropertyList(this.props.currentPlayer)
     }
 
     payAndContinue(){
@@ -62,6 +64,30 @@ class PositionModal extends React.Component {
             this.props.executeCommunityChestCard(this.props.currentPlayer, this.props.recentCommunityChestCard)
             this.setState({cardWasExecuted: true})
         }
+    }
+
+    getUndevelopedPropertyList(pid){
+        let list = []
+        for(let propertySet in this.props.players[pid]["properties"]){
+            let workingList = []
+            let startedDevelopmentOnSet = false
+            for(let setIndex in this.props.players[pid]["properties"][propertySet]){
+                workingList.push(this.props.players[pid]["properties"][propertySet][setIndex])
+                if(this.props.boardPositions[this.props.players[pid]["properties"][propertySet][setIndex]]["numHouses"] &&
+                   this.props.boardPositions[this.props.players[pid]["properties"][propertySet][setIndex]]["numHouses"] > 0){
+                       startedDevelopmentOnSet = true
+                   }
+            }
+
+            if(!startedDevelopmentOnSet){
+                for(let index in workingList){
+                    list.push(workingList[index])
+                }
+            }
+        }
+
+        console.log("undevelopedPropertyList: ", list)
+        
     }
 
     render() {
@@ -169,10 +195,15 @@ class PositionModal extends React.Component {
                 
                 <hr/>
                 {!this.state.isABot ?
+                    <>
                     <PropertyUpgrades currentPlayer={this.props.currentPlayer} 
                                       players={this.props.players} 
                                       boardPositions={this.props.boardPositions}
                                       buyHouse={(pos) => this.props.buyHouse(pos)}/>
+                    <TradeView        currentPlayer={this.props.currentPlayer} 
+                                      players={this.props.players} 
+                                      boardPositions={this.props.boardPositions}/>
+                    </>
                 :
                     <div>
                         <ul>
