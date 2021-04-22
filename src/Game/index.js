@@ -25,6 +25,7 @@ class Game extends React.Component {
                     "canPurchase": false,
                     "purchasePrice": null,
                     "hitCount": 0,
+                    "imageurl": "MonoplyIcons/Start.png"
                 },
                 1: {
                     "pos": 1,
@@ -40,6 +41,7 @@ class Game extends React.Component {
                     "baseRent": 2,
                     "propertiesInSet": [1, 3],
                     "rentMultiplier": [1, 5, 15, 45, 80, 125],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 2: {
                     "pos": 2,
@@ -49,6 +51,7 @@ class Game extends React.Component {
                     "canPurchase": false,
                     "purchasePrice": null,
                     "hitCount": 0,
+                    "imageurl": "MonopolyIcons/Chest.png",
                 },
                 3: {
                     "pos": 3,
@@ -63,7 +66,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 4,
                     "propertiesInSet": [1, 3],
-                    "rentMultiplier": [1, 5, 15, 45, 80, 125]
+                    "rentMultiplier": [1, 5, 15, 45, 80, 125],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 4: {
                     "pos": 4,
@@ -74,6 +78,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/LuxuryTax.png",
                 },
                 5: {
                     "pos": 5,
@@ -86,22 +91,24 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 25,
                     "propertiesInSet": [5, 15, 25, 35],
-                    "rentMultiplier": [0, 1, 2, 4, 8]
+                    "rentMultiplier": [0, 1, 2, 4, 8],
+                    "imageurl": "MonopolyIcons/Railroad.png",
                 },
                 6: {
                     "pos": 6,
                     "name": "Oriental Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 100,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 2,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
-                    "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
+                    "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 7: {
                     "pos": 7,
@@ -112,36 +119,39 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Chance.jpg",
                 },
                 8: {
                     "pos": 8,
                     "name": "Vermont Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 100,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 2,
                     "baseRent": 6,
                     "propertiesInSet": [6, 8, 9],
-                    "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667]
+                    "rentMultiplier": [1, 5, 15, 45, 66.66666667, 91.66666667],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 9: {
                     "pos": 9,
                     "name": "Connecticut Avenue",
                     "role": "property",
                     "propertySet": 'sky',
-                    "canPurchase": true,
+                    "canPurchase": false,
                     "purchasePrice": 120,
                     "houseCost": 50,
                     "numHouses": 0,
                     "hitCount": 0,
-                    "ownedBy": null,
+                    "ownedBy": 2,
                     "baseRent": 8,
                     "propertiesInSet": [6, 8, 9],
-                    "rentMultiplier": [1, 5, 12.5, 37.5, 56.25, 75]
+                    "rentMultiplier": [1, 5, 12.5, 37.5, 56.25, 75],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 10: {
                     "pos": 10,
@@ -152,6 +162,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Jail.png",
                 },
                 11: {
                     "pos": 11,
@@ -166,7 +177,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 10,
                     "propertiesInSet": [11, 13, 14],
-                    "rentMultiplier": [1,5,15,45,62.5,75]
+                    "rentMultiplier": [1,5,15,45,62.5,75],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 12: {
                     "pos": 12,
@@ -178,7 +190,8 @@ class Game extends React.Component {
                     "hitCount": 0,
                     "ownedBy": null,
                     "propertiesInSet": [12, 28],
-                    "rentMultiplier": [0, 4, 10]
+                    "rentMultiplier": [0, 4, 10],
+                    "imageurl": "MonopolyIcons/PowerStation.png",
                 },
                 13: {
                     "pos": 13,
@@ -193,7 +206,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 10,
                     "propertiesInSet": [11, 13, 14],
-                    "rentMultiplier": [1,5,15,45,62.5,75]
+                    "rentMultiplier": [1,5,15,45,62.5,75],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 14: {
                     "pos": 14,
@@ -208,7 +222,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 12,
                     "propertiesInSet": [11, 13, 14],
-                    "rentMultiplier": [1,5,15,41.66666667,58.33333333,75]
+                    "rentMultiplier": [1,5,15,41.66666667,58.33333333,75],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 15: {
                     "pos": 15,
@@ -221,7 +236,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 25,
                     "propertiesInSet": [5, 15, 25, 35],
-                    "rentMultiplier": [0, 1, 2, 4, 8]
+                    "rentMultiplier": [0, 1, 2, 4, 8],
+                    "imageurl": "MonopolyIcons/Railroad.png",
                 },
                 16: {
                     "pos": 16,
@@ -236,7 +252,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 14,
                     "propertiesInSet": [16, 18, 19],
-                    "rentMultiplier": [1, 5, 14.28571429, 39.28571429, 53.57142857, 67.85714286]
+                    "rentMultiplier": [1, 5, 14.28571429, 39.28571429, 53.57142857, 67.85714286],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 17: {
                     "pos": 17,
@@ -247,6 +264,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Chest.png",
                 },
                 18: {
                     "pos": 18,
@@ -261,7 +279,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 14,
                     "propertiesInSet": [16, 18, 19],
-                    "rentMultiplier": [1, 5, 14.28571429, 39.28571429, 53.57142857, 67.85714286]
+                    "rentMultiplier": [1, 5, 14.28571429, 39.28571429, 53.57142857, 67.85714286],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 19: {
                     "pos": 19,
@@ -276,7 +295,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 16,
                     "propertiesInSet": [16, 18, 19],
-                    "rentMultiplier": [1, 5, 13.75, 37.5, 50, 62.5]
+                    "rentMultiplier": [1, 5, 13.75, 37.5, 50, 62.5],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 20: {
                     "pos": 20,
@@ -287,6 +307,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 21: {
                     "pos": 21,
@@ -301,7 +322,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 18,
                     "propertiesInSet": [21, 23, 24],
-                    "rentMultiplier": [1, 5, 13.88888889, 38.88888889, 48.61111111, 58.33333333]
+                    "rentMultiplier": [1, 5, 13.88888889, 38.88888889, 48.61111111, 58.33333333],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 22: {
                     "pos": 22,
@@ -312,6 +334,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Chance.jpg",
                 },
                 23: {
                     "pos": 23,
@@ -326,7 +349,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 18,
                     "propertiesInSet": [21, 23, 24],
-                    "rentMultiplier": [1, 5, 13.88888889, 38.88888889, 48.61111111, 58.33333333]
+                    "rentMultiplier": [1, 5, 13.88888889, 38.88888889, 48.61111111, 58.33333333],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 24: {
                     "pos": 24,
@@ -341,7 +365,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 20,
                     "propertiesInSet": [21, 23, 24],
-                    "rentMultiplier": [1, 5	, 15, 37.5, 46.25, 55]
+                    "rentMultiplier": [1, 5	, 15, 37.5, 46.25, 55],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 25: {
                     "pos": 25,
@@ -354,7 +379,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 25,
                     "propertiesInSet": [5, 15, 25, 35],
-                    "rentMultiplier": [0, 1, 2, 4, 8]
+                    "rentMultiplier": [0, 1, 2, 4, 8],
+                    "imageurl": "MonopolyIcons/Railroad.png",
                 },
                 26: {
                     "pos": 26,
@@ -369,7 +395,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 22,
                     "propertiesInSet": [26, 27, 29],
-                    "rentMultiplier": [1, 5, 15, 36.36363636, 44.31818182, 52.27272727]
+                    "rentMultiplier": [1, 5, 15, 36.36363636, 44.31818182, 52.27272727],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 27: {
                     "pos": 27,
@@ -384,7 +411,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 22,
                     "propertiesInSet": [26, 27, 29],
-                    "rentMultiplier": [1, 5, 15, 36.36363636, 44.31818182, 52.27272727]
+                    "rentMultiplier": [1, 5, 15, 36.36363636, 44.31818182, 52.27272727],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 28: {
                     "pos": 28,
@@ -396,7 +424,8 @@ class Game extends React.Component {
                     "hitCount": 0,
                     "ownedBy": null,
                     "propertiesInSet": [12, 28],
-                    "rentMultiplier": [0, 4, 10]
+                    "rentMultiplier": [0, 4, 10],
+                    "imageurl": "MonopolyIcons/HaveSomeWater.png",
                 },
                 29: {
                     "pos": 29,
@@ -411,7 +440,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 24,
                     "propertiesInSet": [26, 27, 29],
-                    "rentMultiplier": [1, 5, 15, 35.41666667, 42.70833333, 50]
+                    "rentMultiplier": [1, 5, 15, 35.41666667, 42.70833333, 50],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 30: {
                     "pos": 30,
@@ -422,6 +452,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Jail.png",
                 },
                 31: {
                     "pos": 31,
@@ -436,7 +467,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 26,
                     "propertiesInSet": [31, 32, 34],
-                    "rentMultiplier": [1, 5, 15, 34.61538462, 42.30769231, 49.03846154]
+                    "rentMultiplier": [1, 5, 15, 34.61538462, 42.30769231, 49.03846154],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 32: {
                     "pos": 32,
@@ -451,17 +483,19 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 26,
                     "propertiesInSet": [31, 32, 34],
-                    "rentMultiplier": [1, 5, 15, 34.61538462, 42.30769231, 49.03846154]
+                    "rentMultiplier": [1, 5, 15, 34.61538462, 42.30769231, 49.03846154],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 33: {
                     "pos": 33,
                     "name": "Community Chest",
-                    "role": "community chest",
+                    "role": null,
                     "propertySet": null,
                     "canPurchase": false,
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Chest.png",
                 },
                 34: {
                     "pos": 34,
@@ -476,7 +510,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 28,
                     "propertiesInSet": [31, 32, 34],
-                    "rentMultiplier": [1, 5.357142857, 16.07142857, 35.71428571, 42.85714286, 50]
+                    "rentMultiplier": [1, 5.357142857, 16.07142857, 35.71428571, 42.85714286, 50],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 35: {
                     "pos": 35,
@@ -489,7 +524,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 25,
                     "propertiesInSet": [5, 15, 25, 35],
-                    "rentMultiplier": [0, 1, 2, 4, 8]
+                    "rentMultiplier": [0, 1, 2, 4, 8],
+                    "imageurl": "MonopolyIcons/Railroad.png",
                 },
                 36: {
                     "pos": 36,
@@ -500,6 +536,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/Chance.jpg",
                 },
                 37: {
                     "pos": 37,
@@ -514,7 +551,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 35,
                     "propertiesInSet": [37, 39],
-                    "rentMultiplier": [1, 5, 14.28571429, 31.42857143, 37.14285714, 42.85714286]
+                    "rentMultiplier": [1, 5, 14.28571429, 31.42857143, 37.14285714, 42.85714286],
+                    "imageurl": "MonopolyIcons/blank.png",
                 },
                 38: {
                     "pos": 38,
@@ -525,6 +563,7 @@ class Game extends React.Component {
                     "purchasePrice": null,
                     "hitCount": 0,
                     "ownedBy": null,
+                    "imageurl": "MonopolyIcons/LuxuryTax.png",
                 },
                 39: {
                     "pos": 39,
@@ -539,7 +578,8 @@ class Game extends React.Component {
                     "ownedBy": null,
                     "baseRent": 50,
                     "propertiesInSet": [37, 39],
-                    "rentMultiplier": [1, 3.5, 10, 22, 26, 30]
+                    "rentMultiplier": [1, 3.5, 10, 22, 26, 30],
+                    "imageurl": "MonopolyIcons/blank.png",
                 }
             },
             chanceCards: {

@@ -1,6 +1,7 @@
 import Houses from './Houses';
 
 function BoardPosition(props) {
+    console.log("image path -> " + props.data["imgPath"])
     return (
       <div className={`board-position m-0 p-0 h-100 d-flex ${props.data["pos"] < 10 ? " flex-column bottomPos" 
                                              : props.data["pos"] < 20 ? " flex-row-reverse leftPos" 
@@ -11,7 +12,7 @@ function BoardPosition(props) {
                   <Houses propertyData={props.data}/>
               </div>
           ) : null}
-          
+
 
           <div className="text-center w-100">
             <p className="mx-1">{props.data.name}</p>
@@ -26,6 +27,13 @@ function BoardPosition(props) {
                     }
                 })}
             </div>
+          </div>
+          
+          <div>
+            <img src = {`/${props.data["imgPath"]}`}
+                height = {40}
+                width = {40}
+                alt = {"hahahahha fuck yuuuu"} /> 
           </div>
 
           
