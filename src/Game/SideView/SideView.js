@@ -3,6 +3,9 @@ function SideView(props) {
       <div className="side-view-container w-100">
         {props.waitingToRoll ? 
             <>
+            <div className={`text-center p-1 rounded border-color ="black" `}>
+                Monopoly Menu
+            </div>
                 <h3><i className={props.players[props.currentPlayer]["iconClass"]} style={{color: props.players[props.currentPlayer]["iconColor"]}}></i> 
                 Player #{props.currentPlayer}'s turn!</h3>
             </>
@@ -86,10 +89,15 @@ function SideView(props) {
                         // )
                         
                     })}
+                    
+                    
                 </div>
                 </div>
             )
         })}
+        
+
+
       </div>
     );
 }

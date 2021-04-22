@@ -1,15 +1,438 @@
-.bp{
-  
+
+/* BOTTOM RIGHT CORNER */
+/* START */
+.bp0{
   /* border-width: 1px; */
   border-color: black;
   border-style: solid;
-}
+  width: 16.66%;
+  height: 160px; 
+  background-image: url("https://www.dicetower.com/sites/default/files/startspacelogo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: rgb(177, 202, 175);
+  font-size:0;
+  min-width: 9.8%;
+  max-width: 100%;}
+  
 
-.board-position{
+.bp1{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  min-height:0px;
+  height: 160px;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;
+  }
+.bp2{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
   min-height: 60px;
-  background-color: rgb(250, 249, 231);
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://pngimg.com/uploads/treasure_chest/treasure_chest_PNG94.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+  min-width: 9.8%;
+  max-width: 100%;
+}
+.bp3{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  min-height: 60px;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;}
+
+.bp4{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  min-height: 60px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://s.yimg.com/aah/yhst-135284546949511/tax-service-3.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+  min-width: 90px;
+  min-width: 11.8%;
+  max-width: 100%;}
+
+.bp5{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  min-height: 60px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://cdn.iconscout.com/icon/premium/png-256-thumb/railroad-1401225-1188178.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+  min-width: 9.8%;
+  max-width: 100%;}
+
+.bp6{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;}
+
+.bp7{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://i.pinimg.com/originals/6c/5b/36/6c5b36cd1e28930e9321e7a715422990.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  min-width: 90px;
+  min-width: 9.8%;
+  max-width: 100%;}
+
+.bp8{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  background-size: contain;
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp9{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;}
+
+/* BOTTOM LEFT CORNER */
+.bp10{
+  border-color: black;
+  border-style: solid;
+  width: 16.66%;
+  height: 160px; 
+  background-image: url("https://images.squarespace-cdn.com/content/v1/583ed05c59cc68a8c3e45c0f/1510758087154-M0P8315KW6W2RJ4GKSR9/ke17ZwdGBToddI8pDm48kIcrPVbOGePo4iIy-ND-4poUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcOQ0whtG3BBP_MQS_JsLvXCGfZObiJy87WPdSNzk7WdJApIzmpEpWscTlMOcHPfFZ/Monopoly.jpg?format=1000w");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right; 
+  
+  background-color: rgb(177, 202, 175);
+  font-size:0;}
+  
+
+.bp11{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+}
+.bp12{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://cdn.iconscout.com/icon/premium/png-256-thumb/best-electricity-2842878-2364447.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 27%;
+}
+.bp13{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+}
+.bp14{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  }
+.bp15{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://cdn.iconscout.com/icon/premium/png-256-thumb/railroad-1401225-1188178.png");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 27%;
+}
+.bp16{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  }
+.bp17{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://pngimg.com/uploads/treasure_chest/treasure_chest_PNG94.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 33%;
+  }
+.bp18{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);}
+.bp19{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  }
+.bp20{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  width: 16.66%;
+  height: 160px;
+  min-height: 20%; 
+  background-image: url("https://cdn.shopify.com/s/files/1/1067/4288/files/free-parking-t.png?v=1604957240");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 85%;
+  background-color: rgb(177, 202, 175);
+  font-size:0;}
+.bp21{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 160px;
+  background-color: rgb(177, 202, 175);
+ }
+.bp22{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://i.pinimg.com/originals/6c/5b/36/6c5b36cd1e28930e9321e7a715422990.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: 25%;
+  background-size: contain;
+  min-width: 9.8%;
+  max-width: 100%;
+}
+.bp23{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp24{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp25{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://cdn.iconscout.com/icon/premium/png-256-thumb/railroad-1401225-1188178.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp26{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp27{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp28{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://cdn.iconscout.com/icon/premium/png-256-thumb/water-pipe-1500866-1271974.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  min-width: 9.8%;
+  max-width: 100%;}
+.bp29{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 160px;
+  background-color: rgb(177, 202, 175);
+  background-size: 85%;
+  min-width: 9.8%;
+  max-width: 100%;}
+
+/* CORNER TOP RIGHT */
+.bp30{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  width: 16.66%;
+  height: 160px; 
+  background-image: url("https://i.pinimg.com/originals/ab/0f/77/ab0f77c5c9918f241b1a2512cd2bcf38.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgb(177, 202, 175);
+  font-size:0;}
+
+.bp31{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-size: 40%;
+}
+.bp32{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-size: 40%;
+
+}
+.bp33{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://pngimg.com/uploads/treasure_chest/treasure_chest_PNG94.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 33%;
+}
+.bp34{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+}
+.bp35{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://cdn.iconscout.com/icon/premium/png-256-thumb/railroad-1401225-1188178.png");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 27%;
+}
+.bp36{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://i.pinimg.com/originals/6c/5b/36/6c5b36cd1e28930e9321e7a715422990.png");
+  background-repeat: repeat-x;
+  background-position: right bottom+18%;
+  background-size: 20%;
+}
+.bp37{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
 }
 
+.bp38{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+  background-image: url("https://s.yimg.com/aah/yhst-135284546949511/tax-service-3.jpg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 25%;
+}
+.bp39{
+  /* border-width: 1px; */
+  border-color: black;
+  border-style: solid;
+  height: 90px;
+  background-color: rgb(177, 202, 175);
+}
+
+.centerOfBoard{
+  background-color: rgb(177, 202, 175);
+  width:66.66%;
+  height: 720;
+  background-image:url("https://cdn.freelogovectors.net/wp-content/uploads/2016/12/monopoly-logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:contain;
+  max-width: 75%;
+  border-style: solid;
+  border-color:black;
+  border-width: 22px;
+}
+
+
+.styledText{
+  text-align: center;
+
+  font-size: 25;
+  font-weight: bolder;
+
+}
+
+.quitButton{
+  text-align: center;
+  color: white;
+  margin-left: 98.5%;
+  margin-bottom: 0%;
+  background-color: red;
+  background-position-x: 600;
+  border-style: none;
+  border-radius: 3%;
+}
+
+.helper{
+  width: 25px;
+  height: 25px;
+  background-color: white;
+}
 .xbp{
   min-height: 150px;
 }
@@ -59,7 +482,7 @@
 }
 
 .utilities{
-  background-color: rgb(209, 208, 208);
+  background-color: rgb(177, 202, 175);
 }
 
 .property-set{

@@ -4,13 +4,12 @@ import Game from './Game';
 import {Modal, Button} from 'react-bootstrap';
 import React from 'react';
 
-
 class App extends React.Component {
     constructor(props){
         super(props);
         let startingBalance = 1200
-
         this.state = {
+            quitState: undefined,
             gameStarted: false,
             numPlayers: 2,
             startingBalance: startingBalance,
@@ -79,8 +78,12 @@ class App extends React.Component {
     getPlayerIconColor(pid){
         return this.props.players[pid]["iconColor"];
     }
-
+    getQuitState(){
+      return this.quitState
+    }
     startGame(){
+      this.setState({quitState: this.state})
+      console.log(this.quitState)
       this.setState({gameStarted: true})
     }
 
@@ -267,8 +270,8 @@ class App extends React.Component {
                                     type="checkbox" 
                                     id="flexSwitchCheckDefault" 
                                     onChange={() => this.toggleIsABot(key)} 
-                                    checked={this.state.players[key]["isABot"]}
-                                    disabled={key <= 1 ? true : false}></input>
+                                    checked={this.state.players[key]["isABot"]}></input>
+                                    {/*disabled={key <= 1 ? true : false}></input> */}
                               <label className="form-check-label" htmlFor="flexSwitchCheckDefault">is a bot</label>
                             </div>
                             
@@ -287,7 +290,10 @@ class App extends React.Component {
                 
               </div>
             }
+            <button onClick={() => {window.close();}} className="quitButton">X</button>
+
           </div>
+          
         )
     }
 

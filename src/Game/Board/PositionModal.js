@@ -3,6 +3,8 @@ import {Modal, Button} from 'react-bootstrap';
 import { propTypes } from 'react-bootstrap/esm/Image';
 import PropertyUpgrades from './ProperyUpgrades';
 import TradeView from './TradeView';
+import TitleDeed from './TitleDeed';
+
 //import * from './../Cards';
 
 class PositionModal extends React.Component {
@@ -105,8 +107,19 @@ class PositionModal extends React.Component {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                
-                {/*Show chance card instruction*/}
+            <TitleDeed propertyData={this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]}>
+
+            </TitleDeed>
+            Owned by: 
+            { this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["ownedBy"] ? 
+            <>
+                <i className={`mx-2 ${this.getPlayerIconClass(this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["ownedBy"])}`} 
+                style={{color: this.getPlayerIconColor(this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["ownedBy"])}}></i>
+            </>
+            : this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["canPurchase"] ?
+                " Bank - For Sale!"
+            :   " Bank - Not for sale"}
+                            {/*Show chance card instruction*/}
                 {this.props.boardPositions[this.props.players[this.props.currentPlayer]["position"]]["role"] === "chance" ?
                     <>
                     <h4>Chance Card:</h4>
