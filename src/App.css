@@ -14,6 +14,21 @@
   min-height: 150px;
 }
 
+.chance-card{
+  background-color: #ffbd5b;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.community-chest-card{
+  background-color: #f8ff77;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+/* .cardImg{
+  width: 300px !important,
+} */
 .purple{
   background-color:purple;
 }

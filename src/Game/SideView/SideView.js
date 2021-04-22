@@ -38,14 +38,20 @@ function SideView(props) {
                                     <button className="btn btn-success"
                                             disabled={props.players[key]["balance"] < 50}
                                             onClick={() => props.payBail(key)}>Pay fine</button>
-                                    <button className="btn btn-primary mx-1" 
-                                            disabled={!props.players[key]["hasGetOutOfJailCard"]}>Use get-out-jail card</button>
+                                    {props.players[key]["numCards"] && props.players[key]["numCards"] > 0 ?
+                                        <button className="btn btn-primary mx-1"> 
+                                            Use get-out-jail card
+                                        </button>
+                                    : null}
                                 </div>
                             : null}
                         </div>
                     : null}
                     <h5>    Position: {props.players[key]["position"]}</h5>
                     <h5>    Balance: ${props.players[key]["balance"]}</h5>
+                    {props.players[key]["numCards"] && props.players[key]["numCards"] > 0 ?
+                    <h6>Get out jail free cards: {props.players[key]["numCards"]}</h6>
+                    : null}
                     {Object.keys(props.players[key]["properties"]).map((propertySet, index) => {
                         return(
                             <div className="">

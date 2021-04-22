@@ -4,7 +4,6 @@ import BoardPosition from './BoardPosition'
 function MainBoard(props) {
     return (
       <div className="board-container w-100 text-center">
-          Main board here
           <div className="row top-row m-0 p-0">
             <div className="col col-2 m-0 p-0"><BoardPosition players={props.players} data={props.boardPositions[20]}/></div>
             <div className="col col-8 m-0 p-0">

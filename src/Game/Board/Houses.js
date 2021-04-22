@@ -7,8 +7,8 @@ function Houses(props) {
     if(props.propertyData["numHouses"] === 5){
       list = ["hotel"]
     }
-    console.log(list)
-    console.log(props.propertyData["numHouses"])
+    //console.log(list)
+    //console.log(props.propertyData["numHouses"])
     return(
       <>
         {list.map((item, index) => {
