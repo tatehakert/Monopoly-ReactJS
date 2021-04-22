@@ -30,10 +30,16 @@ function BoardPosition(props) {
           </div>
           
           <div>
-            <img src = {`/${props.data["imgPath"]}`}
+            {/* <img src = {`/${props.data["imgPath"]}`}
                 height = {40}
                 width = {40}
-                alt = {"hahahahha fuck yuuuu"} /> 
+                alt = {"hahahahha fuck yuuuu"} />  */}
+            {props.data["imageurl"] ? console.log(props.data["imageurl"]) : console.log("err")}
+            
+            <img src = {props.data["imageurl"]}
+                height = {40}
+                width = {40}
+                alt = {"ERR"} ></img>
           </div>
 
           
