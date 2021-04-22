@@ -202,7 +202,9 @@ class PositionModal extends React.Component {
                                       buyHouse={(pos) => this.props.buyHouse(pos)}/>
                     <TradeView        currentPlayer={this.props.currentPlayer} 
                                       players={this.props.players} 
-                                      boardPositions={this.props.boardPositions}/>
+                                      boardPositions={this.props.boardPositions}
+                                      shouldAcceptTrade={(trade) => this.props.shouldAcceptTrade(trade)}
+                                      executeTrade={(trade) => this.props.executeTrade(trade)}/>
                     </>
                 :
                     <div>

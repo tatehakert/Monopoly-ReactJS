@@ -818,6 +818,73 @@ class Game extends React.Component {
         this.makeHomePurchaseDecision(pid)
     }
 
+    shouldAcceptTrade(trade){
+        let rand = Math.random()
+        if(rand > .5){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    executeTrade(trade){
+        let players = this.state.players
+        let boardPositions = this.state.boardPositions
+
+        // let newTrade = {
+        //     senderPID: this.props.currentPlayer,
+        //     offeredProperty: this.state.propertyGive || null,
+        //     offeredMoney: this.state.giveValue || 0,
+        //     recipientPID: this.state.tradePartner,
+        //     returnProperty: this.state.propertyTake,
+        //     returnMoney: this.state.takeValue || 0,
+        //     tradeStatus: "pending"
+        // }
+        if(trade.offeredMoney && trade.offeredMoney > 0){
+            players[trade.recipientPID]["balance"] = players[trade.recipientPID]["balance"] + trade.offeredMoney
+            players[trade.senderPID]["balance"] = players[trade.senderPID]["balance"] - trade.offeredMoney
+        }
+
+        if(trade.returnMoney && trade.returnMoney > 0){
+            players[trade.senderPID]["balance"] = players[trade.senderPID]["balance"] + trade.returnMoney
+            players[trade.recipientPID]["balance"] = players[trade.recipientPID]["balance"] - trade.returnMoney
+        }
+
+        if(trade.offeredProperty && trade.offeredProperty > 0){
+            
+            players[trade.recipientPID]["properties"][boardPositions[trade.offeredProperty]["propertySet"]].push(trade.offeredProperty)
+            boardPositions[trade.offeredProperty]["ownedBy"] = trade.recipientPID
+
+            let propertiesInSet = players[trade.senderPID]["properties"][boardPositions[trade.offeredProperty]["propertySet"]]
+            let newSet = []
+            for(let index in propertiesInSet){
+                if(propertiesInSet[index] != trade.offeredProperty){
+                    newSet.push(propertiesInSet[index])
+                }
+            }
+            players[trade.senderPID]["properties"][boardPositions[trade.offeredProperty]["propertySet"]] = newSet
+        }
+
+        if(trade.returnProperty && trade.returnProperty > 0){
+            let returnPropertySet = boardPositions[trade.returnProperty]["propertySet"]
+
+            players[trade.senderPID]["properties"][returnPropertySet].push(trade.returnProperty)
+            boardPositions[trade.returnProperty]["ownedBy"] = trade.senderPID
+
+            let propertiesInSet = players[trade.recipientPID]["properties"][returnPropertySet]
+            let newSet = []
+            for(let index in propertiesInSet){
+                if(propertiesInSet[index] != trade.returnProperty){
+                    newSet.push(propertiesInSet[index])
+                }
+            }
+            players[trade.recipientPID]["properties"][returnPropertySet] = newSet
+        }
+
+        this.setState({players: players, boardPositions: boardPositions})
+
+    }
+
     rollDice(pid){
         console.log("pid: ", pid)
         let d1 = Math.floor(Math.random() * 6) + 1
@@ -1502,7 +1569,9 @@ class Game extends React.Component {
                            endTurn={() => this.endTurn()}
                            buyHouse={(pos) => this.buyHouse(pos)}
                            executeChanceCard={(pid, card) => this.executeChanceCard(pid, card)}
-                           executeCommunityChestCard={(pid, card) => this.executeCommunityChestCard(pid, card)}/>
+                           executeCommunityChestCard={(pid, card) => this.executeCommunityChestCard(pid, card)}
+                           shouldAcceptTrade={(trade) => this.shouldAcceptTrade(trade)}
+                           executeTrade={(trade) => this.executeTrade(trade)}/>
             : null}
           
 
